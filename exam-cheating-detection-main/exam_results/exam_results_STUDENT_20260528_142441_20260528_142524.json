@@ -1,0 +1,92 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260528_142441",
+    "name": "raaa",
+    "exam": "de",
+    "course": "Online Exam"
+  },
+  "exam_name": "de",
+  "exam_code": "3",
+  "start_time": "2026-05-28T14:24:41.858541",
+  "end_time": "2026-05-28T14:25:24.276997",
+  "duration_minutes": 30,
+  "answers": {
+    "0": "one",
+    "1": "two",
+    "2": 0,
+    "3": 2,
+    "4": 0
+  },
+  "violations": [
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "14:24:45",
+      "timestamp": "20260528_142445_796919",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.3,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-05-28 14:24:45"
+        },
+        "image_gridfs_id": "6a1802d5f3520e5b9a74a9c1"
+      }
+    }
+  ],
+  "warning_count": 1,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260528_142442.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260528_142441.mp4",
+    "video_gridfs_id": "6a1802faf3520e5b9a74a9c4",
+    "screen_gridfs_id": "6a1802fbf3520e5b9a74aaf8"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "one",
+      "correct_answer": "one",
+      "is_correct": true,
+      "type": "text"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "two",
+      "correct_answer": "two",
+      "is_correct": true,
+      "type": "text"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Central Processing Unit",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "MySQL",
+      "correct_answer": "MySQL",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "HyperText Transfer Protocol",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": true,
+      "type": "mcq"
+    }
+  ],
+  "score": {
+    "correct": 5,
+    "total": 5,
+    "percentage": 100
+  }
+}

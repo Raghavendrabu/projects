@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - GMInsta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="theme.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #fafafa;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            position: sticky;
+            top: 0;
+        }
+
+        .header i {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 16px;
+        }
+
+        .profile {
+            text-align: center;
+            padding: 20px;
+            background: white;
+        }
+
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-username {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 12px 0 8px;
+        }
+
+        .profile-bio {
+            font-size: 14px;
+            color: #262626;
+            margin-bottom: 8px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 16px 0;
+        }
+
+        .stats .count {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .stats .label {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+
+        .follow-btn {
+            background: #0095f6;
+            color: white;
+            border: none;
+            padding: 8px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .follow-btn.following {
+            background: #efefef;
+            color: #262626;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 10px;
+        }
+
+        .grid-item {
+            aspect-ratio: 1;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .private-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #8e8e8e;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            background: white;
+            border-top: 1px solid #dbdbdb;
+        }
+
+        .bottom-nav i {
+            font-size: 24px;
+            color: #262626;
+            cursor: pointer;
+        }
+
+        body.dark-theme {
+            background: #000;
+        }
+
+        body.dark-theme .header,
+        body.dark-theme .profile,
+        body.dark-theme .bottom-nav {
+            background: #000;
+            border-color: #262626;
+            color: #fff;
+        }
+
+        body.dark-theme .follow-btn.following {
+            background: #262626;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <i class="fa-solid fa-arrow-left" onclick="window.location.href='search.html'"></i>
+        <span id="headerUsername">Loading...</span>
+    </div>
+
+    <div class="profile">
+        <img src="https://randomuser.me/api/portraits/lego/1.jpg" id="profileImg" class="profile-img">
+        <div class="profile-username" id="profileUsername">username</div>
+        <div class="profile-bio" id="profileBio">Loading...</div>
+        <button id="followBtn" class="follow-btn">Follow</button>
+        <div class="stats">
+            <div>
+                <div class="count" id="postsCount">0</div>
+                <div class="label">posts</div>
+            </div>
+            <div>
+                <div class="count" id="followersCount">0</div>
+                <div class="label">followers</div>
+            </div>
+            <div>
+                <div class="count" id="followingCount">0</div>
+                <div class="label">following</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contentArea">
+        <div class="grid" id="postsGrid"></div>
+        <div class="private-message" id="privateMessage" style="display: none;">
+            <i class="fa-solid fa-lock" style="font-size: 48px; margin-bottom: 16px; display: block;"></i>
+            <h3>This Account is Private</h3>
+            <p>Follow to see their photos and videos.</p>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <i class="fa-solid fa-house" onclick="location.href='/'"></i>
+        <i class="fa-solid fa-magnifying-glass" onclick="location.href='search.html'"></i>
+        <i class="fa-regular fa-square-plus" onclick="location.href='post.html'"></i>
+        <i class="fa-regular fa-heart" onclick="location.href='notifications.html'"></i>
+        <i class="fa-regular fa-user" onclick="location.href='profile.html'"></i>
+    </div>
+
+    <script>
+        let token = localStorage.getItem('gminsta_token');
+        let currentUser = null;
+        let targetUser = null;
+        let isFollowing = false;
+
+        async function init() {
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const storedUser = localStorage.getItem('gminsta_currentUser');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+            } else {
+                const userRes = await fetch('/api/users/me', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                currentUser = await userRes.json();
+                localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetUsn = urlParams.get('usn');
+            
+            if (!targetUsn) {
+                window.location.href = 'search.html';
+                return;
+            }
+
+            await loadUserProfile(targetUsn);
+        }
+
+        async function loadUserProfile(usn) {
+            try {
+                const response = await fetch(`/api/users/${usn}`, {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert('User not found');
+                    window.location.href = 'search.html';
+                    return;
+                }
+
+                targetUser = data.user;
+                isFollowing = data.is_following;
+
+                document.getElementById('headerUsername').textContent = targetUser.username;
+                document.getElementById('profileUsername').textContent = targetUser.username;
+                document.getElementById('profileBio').textContent = targetUser.bio || 'No bio yet';
+                document.getElementById('profileImg').src = targetUser.profilePhoto || `https://ui-avatars.com/api/?name=${targetUser.username}&background=833AB4&color=fff`;
+                document.getElementById('followersCount').textContent = targetUser.followers?.length || 0;
+                document.getElementById('followingCount').textContent = targetUser.following?.length || 0;
+
+                const followBtn = document.getElementById('followBtn');
+                if (isFollowing) {
+                    followBtn.textContent = 'Following';
+                    followBtn.classList.add('following');
+                } else {
+                    followBtn.textContent = 'Follow';
+                    followBtn.classList.remove('following');
+                }
+
+                followBtn.onclick = toggleFollow;
+
+                await loadUserPosts(usn);
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+
+        async function loadUserPosts(usn) {
+            try {
+                const response = await fetch(`/api/posts/user/${usn}`, {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await response.json();
+                
+                document.getElementById('postsCount').textContent = data.posts?.length || 0;
+
+                const isPrivate = targetUser.isPrivate;
+                const canView = !isPrivate || isFollowing || targetUser.usn === currentUser.usn;
+
+                if (canView) {
+                    document.getElementById('postsGrid').style.display = 'grid';
+                    document.getElementById('privateMessage').style.display = 'none';
+                    
+                    const grid = document.getElementById('postsGrid');
+                    grid.innerHTML = '';
+                    
+                    if (data.posts && data.posts.length > 0) {
+                        data.posts.forEach(post => {
+                            grid.innerHTML += `<div class="grid-item" style="background-image: url('${post.image}');"></div>`;
+                        });
+                    } else {
+                        grid.innerHTML = '<div style="grid-column: span 3; text-align: center; padding: 40px; color: #8e8e8e;">No posts yet</div>';
+                    }
+                } else {
+                    document.getElementById('postsGrid').style.display = 'none';
+                    document.getElementById('privateMessage').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading posts:', error);
+            }
+        }
+
+        async function toggleFollow() {
+            const method = isFollowing ? 'DELETE' : 'POST';
+            
+            try {
+                const response = await fetch(`/api/users/${targetUser.usn}/follow`, {
+                    method: method,
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                
+                if (response.ok) {
+                    isFollowing = !isFollowing;
+                    const followBtn = document.getElementById('followBtn');
+                    
+                    if (isFollowing) {
+                        followBtn.textContent = 'Following';
+                        followBtn.classList.add('following');
+                        targetUser.followers = [...(targetUser.followers || []), currentUser.usn];
+                        currentUser.following.push(targetUser.usn);
+                    } else {
+                        followBtn.textContent = 'Follow';
+                        followBtn.classList.remove('following');
+                        targetUser.followers = (targetUser.followers || []).filter(f => f !== currentUser.usn);
+                        currentUser.following = currentUser.following.filter(f => f !== targetUser.usn);
+                    }
+                    
+                    document.getElementById('followersCount').textContent = targetUser.followers.length;
+                    localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+                    await loadUserPosts(targetUser.usn);
+                }
+            } catch (error) {
+                console.error('Follow error:', error);
+            }
+        }
+
+        init();
+    </script>
+
+</body>
+
+</html>

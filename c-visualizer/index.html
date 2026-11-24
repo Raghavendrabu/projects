@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Program Structural Visualizer | Lexical, AST, CFG, DFG, CPG</title>
+    
+    <!-- Vis.js Standalone Library -->
+    <script src="vis-network.min.js?v=3"></script>
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+
+    <!-- Header bar -->
+    <header>
+        <div class="logo-area">
+            <span class="logo-icon">🔬</span>
+            <h1>C Program Structural Visualizer</h1>
+        </div>
+        <div class="metadata">
+            <span>Assignment 2 | Compiler Analysis Workbench</span>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <div class="app-container">
+        
+        <!-- Left workbench: Editor & Controls -->
+        <aside class="workbench-panel">
+            
+            <!-- Step 1: Select or Paste -->
+            <div class="selector-group">
+                <h3 class="section-title">
+                    <span class="number">1</span>
+                    Select C Example
+                </h3>
+                <select id="example-select" class="custom-select">
+                    <option value="math">Simple Assignment & Math</option>
+                    <option value="branch">If-Else Branching (Conditional)</option>
+                    <option value="while">While Loop (Accumulator)</option>
+                    <option value="for">For Loop (Multiplication)</option>
+                    <option value="factorial">Factorial Function (Recursion)</option>
+                </select>
+            </div>
+
+            <!-- Step 2: Edit Code -->
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; height: 320px;">
+                <h3 class="section-title">
+                    <span class="number">2</span>
+                    C Source Code
+                </h3>
+                <div class="editor-container">
+                    <div id="line-numbers" class="line-numbers">1</div>
+                    <textarea id="editor-textarea" class="editor-textarea" spellcheck="false" placeholder="/* Enter C code here... */"></textarea>
+                </div>
+            </div>
+
+            <!-- Step 3: Run Analysis -->
+            <button type="button" id="btn-run" class="btn-run">
+                <span class="icon">⚡</span>
+                <span>Analyze & Visualize</span>
+            </button>
+
+        </aside>
+
+        <!-- Right panel: Visualization Dashboard -->
+        <main class="visualization-panel">
+            
+            <!-- Navigation Tabs -->
+            <nav class="visualizer-nav">
+                <button type="button" class="nav-tab active" data-tab="tab-lexical">Lexical (Tokens)</button>
+                <button type="button" class="nav-tab" data-tab="tab-ast">AST</button>
+                <button type="button" class="nav-tab" data-tab="tab-cfg">CFG</button>
+                <button type="button" class="nav-tab" data-tab="tab-dfg">DFG</button>
+                <button type="button" class="nav-tab" data-tab="tab-cpg">CPG (Integrated)</button>
+                <button type="button" class="nav-tab" data-tab="tab-theory" style="margin-left: auto; color: var(--accent);">Theory & Report Guide</button>
+            </nav>
+
+            <!-- Canvas Viewport -->
+            <div class="visualizer-viewport">
+
+                <!-- EMPTY STATE -->
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">📝</div>
+                    <h3>No Output Generated</h3>
+                    <p>Enter valid C source code in the workbench editor and click "Analyze & Visualize".</p>
+                </div>
+
+                <!-- FLOATING INFO CARD (Node details on click) -->
+                <div id="details-widget" class="floating-widget details-widget">
+                    <div id="details-close" class="details-close">✕</div>
+                    <h4 id="details-title">Node Details</h4>
+                    <div id="details-content" style="margin-top: 0.75rem;">Select a graph node to inspect.</div>
+                </div>
+
+                <!-- 1. LEXICAL TOKEN TABLE -->
+                <div id="tab-lexical" class="tab-content active">
+                    <div class="lexical-view">
+                        <div class="lexical-header">
+                            <div>
+                                <h3 style="font-family:'Outfit',sans-serif; font-size:1.1rem; color:white;">Lexical Analysis Output</h3>
+                                <p style="font-size:0.8rem; color:var(--text-muted); margin-top: 0.15rem;">Click a row to highlight the token in the source editor.</p>
+                            </div>
+                            <div class="search-container">
+                                <span class="search-icon">🔍</span>
+                                <input type="text" id="searchInput" class="search-input" placeholder="Search tokens or categories...">
+                            </div>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="tokens-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px;">Index</th>
+                                        <th style="width: 150px;">Token Type</th>
+                                        <th>Lexeme Value</th>
+                                        <th style="width: 150px;">Position</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tokens-body">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. ABSTRACT SYNTAX TREE -->
+                <div id="tab-ast" class="tab-content">
+                    <div id="ast-canvas" class="graph-canvas"></div>
+                    
+                    <!-- AST Legend -->
+                    <div class="floating-widget legend-widget">
+                        <h4>AST Syntax Legend</h4>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #4f46e5; border: 1.5px solid #818cf8;"></div>
+                            <span>Abstract Syntax Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="background: rgba(99, 102, 241, 0.5);"></div>
+                            <span>Parent-Child Edge</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. CONTROL FLOW GRAPH -->
+                <div id="tab-cfg" class="tab-content">
+                    <div id="cfg-canvas" class="graph-canvas"></div>
+                    
+                    <!-- CFG Legend -->
+                    <div class="floating-widget legend-widget" style="width: 260px; max-height: 220px;">
+                        <h4>CFG Control Flow Legend</h4>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #064e3b; border: 1.5px solid #059669;"></div>
+                            <span>Statement / Basic Block</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #1e3a8a; border: 1.5px solid #3b82f6;"></div>
+                            <span>Branch Condition Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #7f1d1d; border: 1.5px solid #ef4444;"></div>
+                            <span>Return Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #10b981;"></div>
+                            <span>START Boundary</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ef4444;"></div>
+                            <span>END Boundary</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="background: #059669;"></div>
+                            <span>Standard Transition Flow</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="background: #10b981;"></div>
+                            <span>True Branch Edge (T)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="background: #ef4444;"></div>
+                            <span>False Branch Edge (F)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. DATA FLOW GRAPH -->
+                <div id="tab-dfg" class="tab-content">
+                    <div id="dfg-canvas" class="graph-canvas"></div>
+                    
+                    <!-- DFG Legend -->
+                    <div class="floating-widget legend-widget">
+                        <h4>DFG Dependency Legend</h4>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #78350f; border: 1.5px solid #d97706;"></div>
+                            <span>Variable Definition / Write</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #7f1d1d; border: 1.5px solid #ef4444;"></div>
+                            <span>Return Usage</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="background: #f59e0b; height: 2px; border-top: 2px dashed #f59e0b;"></div>
+                            <span>Data Flow Edge (Write -> Use)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. CODE PROPERTY GRAPH -->
+                <div id="tab-cpg" class="tab-content">
+                    <div id="cpg-canvas" class="graph-canvas"></div>
+                    
+                    <!-- CPG Overlay Switches Widget -->
+                    <div class="floating-widget control-widget">
+                        <h4>CPG Layer Overlays</h4>
+                        
+                        <div class="control-option">
+                            <label for="switch-ast">1. AST Edges (Structure)</label>
+                            <label class="switch">
+                                <input type="checkbox" id="switch-ast" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="control-option">
+                            <label for="switch-cfg">2. CFG Edges (Control)</label>
+                            <label class="switch">
+                                <input type="checkbox" id="switch-cfg" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="control-option">
+                            <label for="switch-dfg">3. DFG Edges (Data)</label>
+                            <label class="switch">
+                                <input type="checkbox" id="switch-dfg" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- CPG Legend -->
+                    <div class="floating-widget legend-widget" style="width: 250px; max-height: 220px;">
+                        <h4>CPG Unified Legend</h4>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: rgba(30, 41, 59, 0.8); border: 1.5px solid rgba(99, 102, 241, 0.5);"></div>
+                            <span>AST Syntax Element</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #10b981; border: 1px solid #34d399;"></div>
+                            <span>START/END Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="background: rgba(99, 102, 241, 0.45); height: 1.5px;"></div>
+                            <span>AST Parent-Child Relation</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="background: #10b981; height: 3px;"></div>
+                            <span>CFG Control Transition</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="background: #f59e0b; height: 2px; border-top: 2px dashed #f59e0b;"></div>
+                            <span>DFG Data Dependency</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. THEORY PANEL -->
+                <div id="tab-theory" class="tab-content">
+                    <div id="theory-content-area" class="theory-view">
+                        <!-- Loaded dynamically from theory.js -->
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Load JavaScript Components -->
+    <script src="theory.js?v=4"></script>
+    <script src="parser.js?v=4"></script>
+    <script src="graph-builder.js?v=4"></script>
+    <script src="visualizer.js?v=4"></script>
+    
+    <script>
+        // Bind the search input specifically since searchInput references a slightly different ID in visualizer.js
+        document.getElementById('searchInput').addEventListener('input', function() {
+            document.getElementById('search-input').value = this.value;
+            // Trigger input event on the hidden input to match visualizer.js implementation
+            const event = new Event('input', { bubbles: true });
+            document.getElementById('search-input').dispatchEvent(event);
+        });
+    </script>
+    
+    <!-- Hidden element to compatibility map searchInput in visualizer.js -->
+    <input type="hidden" id="search-input">
+
+</body>
+</html>

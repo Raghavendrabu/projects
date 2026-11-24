@@ -1,0 +1,17 @@
+Image,PQC Variant,Quantum Layer,PSNR (dB),SSIM,MSE,Enc Entropy,Orig Corr (Avg),Enc Corr (Avg),NPCR (%),UACI (%),Enc Throughput (MB/s),Total Latency (ms),Integrity Verified
+Brain Mri,Kyber512,Quantum ON,100.0,1.0,0.0,7.9971,0.9683,0.0162,99.62,33.49,1.1,299.78,True
+Brain Mri,Kyber512,Quantum OFF,100.0,1.0,0.0,7.9971,0.9683,0.012,99.6,33.33,89.02,220.61,True
+Brain Mri,Kyber768,Quantum ON,100.0,1.0,0.0,7.9972,0.9683,0.0192,99.56,33.61,109.92,172.95,True
+Brain Mri,Kyber768,Quantum OFF,100.0,1.0,0.0,7.9971,0.9683,0.0132,99.62,33.52,115.98,365.6,True
+Chest Xray,Kyber512,Quantum ON,100.0,1.0,0.0,7.9967,0.9813,0.02,99.55,33.46,11.16,378.69,True
+Chest Xray,Kyber512,Quantum OFF,100.0,1.0,0.0,7.9971,0.9813,0.0043,99.57,33.52,115.44,158.82,True
+Chest Xray,Kyber768,Quantum ON,100.0,1.0,0.0,7.9974,0.9813,0.0084,99.61,33.35,125.38,304.32,True
+Chest Xray,Kyber768,Quantum OFF,100.0,1.0,0.0,7.997,0.9813,0.0156,99.61,33.49,125.93,420.64,True
+Lung Ct,Kyber512,Quantum ON,100.0,1.0,0.0,7.9974,0.9499,0.0134,99.61,33.54,89.06,274.46,True
+Lung Ct,Kyber512,Quantum OFF,100.0,1.0,0.0,7.9975,0.9499,0.0045,99.58,33.68,133.95,163.76,True
+Lung Ct,Kyber768,Quantum ON,100.0,1.0,0.0,7.9968,0.9499,0.009,99.62,33.44,123.47,449.17,True
+Lung Ct,Kyber768,Quantum OFF,100.0,1.0,0.0,7.9974,0.9499,0.0017,99.6,33.47,132.75,156.08,True
+Retinal Fundus,Kyber512,Quantum ON,100.0,1.0,0.0,7.9974,0.9847,0.005,99.58,33.32,120.49,189.86,True
+Retinal Fundus,Kyber512,Quantum OFF,100.0,1.0,0.0,7.9968,0.9847,0.0099,99.64,33.34,99.05,146.68,True
+Retinal Fundus,Kyber768,Quantum ON,100.0,1.0,0.0,7.9974,0.9847,0.0071,99.54,33.56,123.2,235.94,True
+Retinal Fundus,Kyber768,Quantum OFF,100.0,1.0,0.0,7.9972,0.9847,0.0063,99.64,33.69,114.57,242.73,True

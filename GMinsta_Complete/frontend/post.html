@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Post - GMInsta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="theme.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #fafafa;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            position: sticky;
+            top: 0;
+        }
+
+        .header .cancel {
+            font-size: 16px;
+            cursor: pointer;
+            color: #262626;
+        }
+
+        .header .new-post {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .header .share {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0095f6;
+            cursor: pointer;
+        }
+
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            background: #fafafa;
+        }
+
+        .preview-img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+        }
+
+        .upload-area {
+            text-align: center;
+            padding: 60px 20px;
+            border: 1px dashed #dbdbdb;
+            margin: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .upload-area i {
+            font-size: 48px;
+            color: #8e8e8e;
+            margin-bottom: 16px;
+        }
+
+        .upload-area p {
+            color: #8e8e8e;
+            font-size: 14px;
+        }
+
+        .upload-area button {
+            background: #0095f6;
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        .caption-area {
+            padding: 16px;
+            border-top: 1px solid #dbdbdb;
+            display: none;
+        }
+
+        .caption-area textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            resize: none;
+            font-family: inherit;
+            min-height: 80px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            background: white;
+            border-top: 1px solid #dbdbdb;
+        }
+
+        .bottom-nav i {
+            font-size: 24px;
+            color: #262626;
+            cursor: pointer;
+        }
+
+        body.dark-theme {
+            background: #000;
+        }
+
+        body.dark-theme .header,
+        body.dark-theme .bottom-nav,
+        body.dark-theme .upload-area,
+        body.dark-theme .caption-area {
+            background: #000;
+            border-color: #262626;
+        }
+
+        body.dark-theme .cancel,
+        body.dark-theme .new-post,
+        body.dark-theme .bottom-nav i,
+        body.dark-theme .caption-area textarea {
+            color: #fff;
+        }
+
+        body.dark-theme .upload-area p {
+            color: #8e8e8e;
+        }
+
+        body.dark-theme .caption-area textarea {
+            background: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <span class="cancel" onclick="window.location.href='/'">Cancel</span>
+        <span class="new-post">New post</span>
+        <span class="share" onclick="uploadPost()">Share</span>
+    </div>
+
+    <div class="preview-container" id="previewContainer">
+        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+            <i class="fa-regular fa-image"></i>
+            <p>Select photo to share</p>
+            <button>Select from computer</button>
+        </div>
+        <img id="previewImg" class="preview-img" style="display: none;">
+    </div>
+
+    <div class="caption-area" id="captionArea">
+        <textarea id="captionInput" placeholder="Write a caption..."></textarea>
+    </div>
+
+    <div class="bottom-nav">
+        <i class="fa-solid fa-house" onclick="location.href='/'"></i>
+        <i class="fa-solid fa-magnifying-glass" onclick="location.href='search.html'"></i>
+        <i class="fa-regular fa-square-plus" onclick="location.href='post.html'"></i>
+        <i class="fa-regular fa-heart"></i>
+        <i class="fa-regular fa-user" onclick="location.href='profile.html'"></i>
+    </div>
+
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <script>
+        let currentUser = null;
+        let token = null;
+        let base64Image = null;
+        let isStory = false;
+
+        async function init() {
+            token = localStorage.getItem('gminsta_token');
+            const storedUser = localStorage.getItem('gminsta_currentUser');
+            
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+            } else {
+                const verifyRes = await fetch('/api/verify', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const verifyData = await verifyRes.json();
+                if (verifyData.success) {
+                    currentUser = verifyData.user;
+                    localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+                } else {
+                    localStorage.removeItem('gminsta_token');
+                    window.location.href = 'login.html';
+                    return;
+                }
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            isStory = urlParams.get('type') === 'story';
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file || !file.type.startsWith("image")) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.getElementById('canvas');
+                    const ctx = canvas.getContext('2d');
+                    let width = img.width;
+                    let height = img.height;
+                    const MAX_SIZE = 1080;
+
+                    if (width > height) {
+                        if (width > MAX_SIZE) {
+                            height *= MAX_SIZE / width;
+                            width = MAX_SIZE;
+                        }
+                    } else {
+                        if (height > MAX_SIZE) {
+                            width *= MAX_SIZE / height;
+                            height = MAX_SIZE;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    base64Image = canvas.toDataURL('image/jpeg', 0.9);
+                    
+                    document.getElementById('previewImg').src = base64Image;
+                    document.getElementById('previewImg').style.display = 'block';
+                    document.getElementById('uploadArea').style.display = 'none';
+                    document.getElementById('captionArea').style.display = 'block';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        async function uploadPost() {
+            if (!base64Image) {
+                alert("Please select an image first.");
+                return;
+            }
+
+            const caption = document.getElementById("captionInput").value.trim();
+
+            let url = '/api/posts';
+            let body = {
+                image: base64Image,
+                caption: caption,
+                authorPhoto: currentUser.profilePhoto
+            };
+
+            if (isStory) {
+                url = '/api/stories';
+            }
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (response.ok) {
+                window.location.href = '/';
+            } else {
+                alert('Failed to create post');
+            }
+        }
+
+        init();
+    </script>
+
+</body>
+
+</html>

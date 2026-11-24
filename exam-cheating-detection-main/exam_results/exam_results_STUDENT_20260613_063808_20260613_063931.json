@@ -1,0 +1,137 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260613_063808",
+    "name": "ragahv",
+    "exam": "Data Structures Mid Term",
+    "course": "Online Exam"
+  },
+  "exam_name": "Data Structures Mid Term",
+  "exam_code": "EX-DS-401",
+  "start_time": "2026-06-13T06:38:08.854572",
+  "end_time": "2026-06-13T06:39:31.340322",
+  "duration_minutes": 30,
+  "answers": {},
+  "violations": [
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "06:38:10",
+      "timestamp": "20260613_063810_459450",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.1310609917922752,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-06-13 06:38:10"
+        },
+        "image_gridfs_id": "6a2cad7a594805b41ebfa562"
+      }
+    },
+    {
+      "type": "GAZE_AWAY",
+      "time": "06:38:49",
+      "timestamp": "20260613_063848_992584",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "right",
+          "eye_ratio": 0.3807952631187659,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-06-13 06:38:48"
+        },
+        "image_gridfs_id": "6a2cada1594805b41ebfa565"
+      }
+    },
+    {
+      "type": "GAZE_AWAY",
+      "time": "06:39:06",
+      "timestamp": "20260613_063906_078281",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "right",
+          "eye_ratio": 0.26594595818999556,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-06-13 06:39:05"
+        },
+        "image_gridfs_id": "6a2cadb2594805b41ebfa568"
+      }
+    },
+    {
+      "type": "MOUTH_MOVING",
+      "time": "06:39:18",
+      "timestamp": "20260613_063918_637508",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2543164039403212,
+          "mouth_moving": true,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-06-13 06:39:18"
+        },
+        "image_gridfs_id": "6a2cadbe594805b41ebfa56b"
+      }
+    }
+  ],
+  "warning_count": 3,
+  "terminated": true,
+  "status": "terminated",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260613_063809.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260613_063808.mp4",
+    "video_gridfs_id": "6a2cadc8594805b41ebfa56e",
+    "screen_gridfs_id": "6a2cadc9594805b41ebfa666"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Paris",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Python",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "Not Answered",
+      "correct_answer": "MySQL",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": false,
+      "type": "mcq"
+    }
+  ],
+  "score": {
+    "correct": 0,
+    "total": 5,
+    "percentage": 0
+  }
+}

@@ -1,0 +1,84 @@
+# Excluded projects (explicitly excluded)
+manhwa_studio/
+Concat/
+webtoons/
+_legacy_donghua_archive/
+
+# Empty / scratch directories
+generated_audio/
+logs/
+reports/
+pro/
+meetai/
+terminalx/
+shorts/
+models/
+
+# Standalone Git repository backups
+.git_standalone_backup/
+**/.git_standalone_backup/
+
+# Python Virtual Environments
+.venv/
+**/.venv/
+venv/
+**/venv/
+env/
+**/env/
+ENV/
+
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Python cache & build
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+**/.pytest_cache/
+
+# IDE & Editor files
+.vscode/
+**/.vscode/
+.idea/
+**/.idea/
+*.swp
+*.swo
+
+# Environment variables & secrets (CRITICAL: Never commit secrets)
+.env
+**/.env
+.env.*
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Large binaries, models, and archives
+*.zip
+*.exe
+*.dll
+*.pt
+*.h5
+*.weights
+*.bin
+*.tar.gz
+*.rar
+
+# Build / distribution outputs
+dist/
+**/dist/
+build/
+**/build/
+
+# Root loose temporary files
+/app.py
+/auth.html
+/hasse_report.md
+/lab2.py
+/ppt_contents.txt
+/ppt_detailed_shapes.txt
+/slides_detailed.txt
+/student_performance_ann.py
+/student_performance_model.h5

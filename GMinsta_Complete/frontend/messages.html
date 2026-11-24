@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - GMInsta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="theme.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fafafa;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 30%;
+            border-right: 1px solid #ddd;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chat-list {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .chat-item:hover {
+            background: #f2f2f2;
+        }
+
+        .chat-item img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .chat-area {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .message {
+            max-width: 60%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .sent {
+            background: #0095f6;
+            color: white;
+            margin-left: auto;
+        }
+
+        .received {
+            background: #efefef;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            outline: none;
+        }
+
+        .send-btn {
+            margin-left: 10px;
+            background: #0095f6;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            display: none;
+        }
+
+        @media(max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .chat-area {
+                width: 100%;
+            }
+            .back-btn {
+                display: inline-block;
+                margin-right: 15px;
+                cursor: pointer;
+            }
+        }
+
+        body.dark-theme .chat-area,
+        body.dark-theme .sidebar {
+            background: #121212;
+            border-color: #333;
+        }
+
+        body.dark-theme .chat-item:hover {
+            background: #1e1e1e;
+        }
+
+        body.dark-theme .received {
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span>Messages</span>
+            </div>
+            <div class="chat-list" id="chatList">
+                <p style="padding:15px; color:gray;">Loading...</p>
+            </div>
+        </div>
+
+        <div class="chat-area">
+            <div class="chat-header">
+                <i class="fa-solid fa-arrow-left back-btn" onclick="showSidebar()"></i>
+                <span id="chatHeader">Select a chat</span>
+            </div>
+            <div class="messages" id="messages"></div>
+            <div class="input-area">
+                <input type="text" id="msgInput" placeholder="Message...">
+                <button class="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let token = null;
+        let currentChatUsn = null;
+        let allUsers = [];
+
+        async function init() {
+            token = localStorage.getItem('gminsta_token');
+            const storedUser = localStorage.getItem('gminsta_currentUser');
+            
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+            } else {
+                const verifyRes = await fetch('/api/verify', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const verifyData = await verifyRes.json();
+                if (verifyData.success) {
+                    currentUser = verifyData.user;
+                    localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+                } else {
+                    localStorage.removeItem('gminsta_token');
+                    window.location.href = 'login.html';
+                    return;
+                }
+            }
+
+            await loadChatList();
+        }
+
+        async function loadChatList() {
+            const messagesRes = await fetch('/api/messages', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            const messagesData = await messagesRes.json();
+            
+            const uniqueChatters = new Set();
+            messagesData.messages.forEach(msg => {
+                if (msg.fromUsn === currentUser.usn) uniqueChatters.add(msg.toUsn);
+                if (msg.toUsn === currentUser.usn) uniqueChatters.add(msg.fromUsn);
+            });
+
+            const chatList = document.getElementById('chatList');
+            
+            if (uniqueChatters.size === 0) {
+                chatList.innerHTML = '<p style="padding:15px; color:gray;">No conversations yet</p>';
+                return;
+            }
+
+            const users = [];
+            for (const usn of uniqueChatters) {
+                const userRes = await fetch(`/api/users/${usn}`, {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const userData = await userRes.json();
+                if (!userData.error) {
+                    users.push(userData.user);
+                }
+            }
+            allUsers = users;
+
+            chatList.innerHTML = users.map(user => `
+                <div class="chat-item" onclick="openChat('${user.usn}', '${user.username}')">
+                    <img src="${user.profilePhoto || 'https://via.placeholder.com/45'}">
+                    <div><b>${user.username}</b></div>
+                </div>
+            `).join('');
+        }
+
+        async function openChat(usn, username) {
+            currentChatUsn = usn;
+            document.getElementById('chatHeader').textContent = username;
+            await renderMessages();
+            
+            if (window.innerWidth <= 768) {
+                document.querySelector('.sidebar').style.display = 'none';
+                document.querySelector('.chat-area').style.width = '100%';
+            }
+        }
+
+        function showSidebar() {
+            document.querySelector('.sidebar').style.display = 'flex';
+            document.querySelector('.chat-area').style.width = '70%';
+        }
+
+        async function renderMessages() {
+            if (!currentChatUsn) return;
+
+            const messagesRes = await fetch('/api/messages', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            const messagesData = await messagesRes.json();
+            
+            const thread = messagesData.messages.filter(msg => 
+                (msg.fromUsn === currentUser.usn && msg.toUsn === currentChatUsn) || 
+                (msg.fromUsn === currentChatUsn && msg.toUsn === currentUser.usn)
+            );
+
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML = '';
+            thread.forEach(msg => {
+                const isSent = msg.fromUsn === currentUser.usn;
+                const className = isSent ? "message sent" : "message received";
+                messagesDiv.innerHTML += `<div class="${className}">${msg.text}</div>`;
+            });
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+
+            if (text === "" || !currentChatUsn) return;
+
+            await fetch('/api/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({
+                    toUsn: currentChatUsn,
+                    text: text
+                })
+            });
+
+            input.value = "";
+            await renderMessages();
+        }
+
+        init();
+    </script>
+
+</body>
+
+</html>

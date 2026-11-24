@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - GMInsta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="theme.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #fafafa;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header span {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .header i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 60px;
+            right: 16px;
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 12px;
+            display: none;
+            width: 220px;
+            z-index: 200;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .dropdown div {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .dropdown div:hover {
+            background: #f2f2f2;
+        }
+
+        .dropdown hr {
+            margin: 0;
+            border: none;
+            border-top: 1px solid #dbdbdb;
+        }
+
+        .profile {
+            text-align: center;
+            padding: 20px;
+            background: white;
+        }
+
+        .profile-img-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px #dbdbdb;
+        }
+
+        .camera-icon {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #0095f6;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            border: 2px solid white;
+        }
+
+        .profile-username {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 12px 0 8px 0;
+        }
+
+        .profile-bio {
+            font-size: 14px;
+            color: #262626;
+            margin-bottom: 8px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 16px 0;
+            padding: 0 20px;
+        }
+
+        .stats div {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .stats .count {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .stats .label {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+
+        .edit-profile-btn {
+            background: #efefef;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 10px;
+        }
+
+        .grid-item {
+            aspect-ratio: 1;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .grid-item-overlay {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            background: white;
+            border-top: 1px solid #dbdbdb;
+            z-index: 100;
+        }
+
+        .bottom-nav i {
+            font-size: 24px;
+            color: #262626;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 350px;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        body.dark-theme {
+            background: #000;
+        }
+
+        body.dark-theme .header,
+        body.dark-theme .profile,
+        body.dark-theme .bottom-nav,
+        body.dark-theme .modal-content,
+        body.dark-theme .dropdown {
+            background: #000;
+            border-color: #262626;
+            color: #fff;
+        }
+
+        body.dark-theme .profile-bio {
+            color: #fff;
+        }
+
+        body.dark-theme .edit-profile-btn {
+            background: #262626;
+            color: #fff;
+        }
+
+        body.dark-theme .dropdown div:hover {
+            background: #1a1a1a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <span id="profileUsername">Profile</span>
+        <i class="fa-regular fa-bars" onclick="toggleMenu()"></i>
+    </div>
+
+    <div class="dropdown" id="dropdownMenu">
+        <div onclick="toggleTheme()">🌓 Dark Mode</div>
+        <div onclick="togglePrivacy()">
+            <span id="privacyText">🔒 Private Account</span>
+            <span id="privacyStatus" style="float: right; color: #0095f6;"></span>
+        </div>
+        <hr>
+        <div onclick="logout()" style="color: #ed4956;">🚪 Logout</div>
+    </div>
+
+    <div class="profile" id="profileContainer">
+        <div class="profile-img-container" onclick="document.getElementById('profilePicInput').click()">
+            <img src="https://randomuser.me/api/portraits/lego/1.jpg" id="profileImg" class="profile-img">
+            <div class="camera-icon">
+                <i class="fa-solid fa-camera"></i>
+            </div>
+        </div>
+        <div class="profile-username" id="profileUsernameText">username</div>
+        <div class="profile-bio" id="profileBio">No bio yet</div>
+        <button class="edit-profile-btn" onclick="editBio()">Edit profile</button>
+        <div class="stats">
+            <div>
+                <div class="count" id="postsCount">0</div>
+                <div class="label">posts</div>
+            </div>
+            <div onclick="showModal('followers')">
+                <div class="count" id="followersCount">0</div>
+                <div class="label">followers</div>
+            </div>
+            <div onclick="showModal('following')">
+                <div class="count" id="followingCount">0</div>
+                <div class="label">following</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid" id="postsGrid">
+        <div style="grid-column: span 3; text-align: center; padding: 40px; color: #8e8e8e;">Loading posts...</div>
+    </div>
+
+    <div class="bottom-nav">
+        <i class="fa-solid fa-house" onclick="location.href='/'"></i>
+        <i class="fa-solid fa-magnifying-glass" onclick="location.href='search.html'"></i>
+        <i class="fa-regular fa-square-plus" onclick="location.href='post.html'"></i>
+        <i class="fa-regular fa-heart" onclick="location.href='notifications.html'"></i>
+        <i class="fa-regular fa-user" onclick="location.href='profile.html'"></i>
+    </div>
+
+    <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <!-- Edit Bio Modal -->
+    <div id="bioModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 16px;">Edit Profile</h3>
+            <textarea id="bioInput" rows="3" placeholder="Bio"></textarea>
+            <button onclick="saveBio()" style="background: #0095f6; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: 600;">Save</button>
+            <button onclick="closeBioModal()" style="background: none; border: none; margin-top: 10px; cursor: pointer; color: #8e8e8e;">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Followers/Following Modal -->
+    <div id="listModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Title</h3>
+            <div id="modalList"></div>
+            <button onclick="closeListModal()" style="margin-top: 16px; background: none; border: none; cursor: pointer;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let token = null;
+
+        async function init() {
+            token = localStorage.getItem('gminsta_token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                // IMPORTANT: Use /api/users/me to get YOUR OWN profile
+                const userRes = await fetch('/api/users/me', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                currentUser = await userRes.json();
+                
+                console.log('Current User:', currentUser); // Debug log
+
+                // Save to localStorage
+                localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+
+                // Update profile UI
+                updateProfileUI(currentUser);
+                await loadUserPosts(currentUser.usn);
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+
+        function updateProfileUI(user) {
+            // Profile picture
+            const profileImg = document.getElementById('profileImg');
+            if (user.profilePhoto && user.profilePhoto !== 'null' && user.profilePhoto !== 'undefined') {
+                profileImg.src = user.profilePhoto;
+            } else {
+                profileImg.src = `https://ui-avatars.com/api/?name=${user.username}&background=833AB4&color=fff`;
+            }
+            
+            // Username and bio
+            document.getElementById('profileUsernameText').textContent = user.username;
+            document.getElementById('profileBio').textContent = user.bio || 'No bio yet';
+            
+            // Stats
+            document.getElementById('followersCount').textContent = user.followers?.length || 0;
+            document.getElementById('followingCount').textContent = user.following?.length || 0;
+            
+            // Privacy status
+            const privacyStatus = document.getElementById('privacyStatus');
+            if (privacyStatus) {
+                privacyStatus.textContent = user.isPrivate ? 'ON' : 'OFF';
+            }
+        }
+
+        async function loadUserPosts(usn) {
+            try {
+                const res = await fetch(`/api/posts/user/${usn}`, {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                
+                console.log('Posts:', data); // Debug log
+                
+                const postsCount = document.getElementById('postsCount');
+                if (postsCount) postsCount.textContent = data.posts?.length || 0;
+
+                const grid = document.getElementById('postsGrid');
+                grid.innerHTML = '';
+                
+                if (data.posts && data.posts.length > 0) {
+                    data.posts.forEach(post => {
+                        const likeCount = post.likes?.length || 0;
+                        grid.innerHTML += `
+                            <div class="grid-item" style="background-image: url('${post.image}');" onclick="viewPost('${post.id}')">
+                                <div class="grid-item-overlay">
+                                    <i class="fa-regular fa-heart"></i> ${likeCount}
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    grid.innerHTML = '<div style="grid-column: span 3; text-align: center; padding: 60px 20px; color: #8e8e8e;"><i class="fa-regular fa-camera" style="font-size: 48px; margin-bottom: 16px; display: block;"></i>No posts yet</div>';
+                }
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                document.getElementById('postsGrid').innerHTML = '<div style="grid-column: span 3; text-align: center; padding: 40px; color: red;">Error loading posts</div>';
+            }
+        }
+
+        function viewPost(postId) {
+            window.location.href = `/post.html?postId=${postId}`;
+        }
+
+        // Profile Picture Upload
+        document.getElementById('profilePicInput').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const img = new Image();
+                img.onload = async function() {
+                    const canvas = document.getElementById('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const size = 400;
+                    canvas.width = size;
+                    canvas.height = size;
+                    ctx.drawImage(img, 0, 0, size, size);
+                    const base64 = canvas.toDataURL('image/jpeg', 0.8);
+                    
+                    try {
+                        const response = await fetch('/api/users/profile', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + token
+                            },
+                            body: JSON.stringify({ profilePhoto: base64 })
+                        });
+                        
+                        if (response.ok) {
+                            currentUser.profilePhoto = base64;
+                            localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+                            document.getElementById('profileImg').src = base64;
+                            alert('Profile picture updated successfully!');
+                        }
+                    } catch (error) {
+                        console.error('Error uploading profile pic:', error);
+                        alert('Failed to update profile picture');
+                    }
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        async function togglePrivacy() {
+            const newPrivacy = !currentUser.isPrivate;
+            try {
+                await fetch('/api/users/profile', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ isPrivate: newPrivacy })
+                });
+                
+                currentUser.isPrivate = newPrivacy;
+                localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+                document.getElementById('privacyStatus').textContent = newPrivacy ? 'ON' : 'OFF';
+                alert(`Account is now ${newPrivacy ? 'Private' : 'Public'}`);
+            } catch (error) {
+                console.error('Error toggling privacy:', error);
+            }
+        }
+
+        function editBio() {
+            document.getElementById('bioInput').value = currentUser.bio || '';
+            document.getElementById('bioModal').style.display = 'flex';
+            toggleMenu();
+        }
+
+        function closeBioModal() {
+            document.getElementById('bioModal').style.display = 'none';
+        }
+
+        async function saveBio() {
+            const newBio = document.getElementById('bioInput').value.trim();
+            
+            try {
+                const response = await fetch('/api/users/profile', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ bio: newBio })
+                });
+                
+                if (response.ok) {
+                    currentUser.bio = newBio;
+                    localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+                    document.getElementById('profileBio').textContent = newBio || 'No bio yet';
+                    closeBioModal();
+                    alert('Bio updated successfully!');
+                }
+            } catch (error) {
+                console.error('Error saving bio:', error);
+                alert('Failed to update bio');
+            }
+        }
+
+        async function showModal(type) {
+            const modal = document.getElementById('listModal');
+            const title = document.getElementById('modalTitle');
+            const list = document.getElementById('modalList');
+            
+            if (type === 'followers') {
+                title.textContent = 'Followers';
+                const followers = currentUser.followers || [];
+                if (followers.length === 0) {
+                    list.innerHTML = '<p style="color:#8e8e8e; text-align:center;">No followers yet</p>';
+                } else {
+                    let html = '';
+                    for (const usn of followers) {
+                        const userRes = await fetch(`/api/users/${usn}`, {
+                            headers: { 'Authorization': 'Bearer ' + token }
+                        });
+                        const userData = await userRes.json();
+                        const user = userData.user || userData;
+                        html += `<div style="padding: 8px 0; border-bottom: 1px solid #dbdbdb; display: flex; align-items: center; gap: 10px;">
+                                    <img src="${user.profilePhoto || `https://ui-avatars.com/api/?name=${user.username}`}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                    <div><strong>${user.username}</strong><br><small>${user.fullname || ''}</small></div>
+                                </div>`;
+                    }
+                    list.innerHTML = html;
+                }
+            } else {
+                title.textContent = 'Following';
+                const following = currentUser.following || [];
+                if (following.length === 0) {
+                    list.innerHTML = '<p style="color:#8e8e8e; text-align:center;">Not following anyone</p>';
+                } else {
+                    let html = '';
+                    for (const usn of following) {
+                        const userRes = await fetch(`/api/users/${usn}`, {
+                            headers: { 'Authorization': 'Bearer ' + token }
+                        });
+                        const userData = await userRes.json();
+                        const user = userData.user || userData;
+                        html += `<div style="padding: 8px 0; border-bottom: 1px solid #dbdbdb; display: flex; align-items: center; gap: 10px;">
+                                    <img src="${user.profilePhoto || `https://ui-avatars.com/api/?name=${user.username}`}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                    <div><strong>${user.username}</strong><br><small>${user.fullname || ''}</small></div>
+                                </div>`;
+                    }
+                    list.innerHTML = html;
+                }
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeListModal() {
+            document.getElementById('listModal').style.display = 'none';
+        }
+
+        function logout() {
+            localStorage.removeItem('gminsta_token');
+            localStorage.removeItem('gminsta_currentUser');
+            window.location.href = 'login.html';
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const menuBtn = document.querySelector('.fa-bars');
+            if (menu && menuBtn && !menu.contains(event.target) && event.target !== menuBtn && !menuBtn.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+
+        // Start the app
+        init();
+    </script>
+
+</body>
+
+</html>

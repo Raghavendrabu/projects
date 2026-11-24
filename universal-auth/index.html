@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Portal - Login & Sign Up</title>
+    <meta name="description" content="A premium, highly secure and customizable login and sign up gate.">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Ambient glowing backgrounds -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Theme Toggle Trigger -->
+    <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle light/dark theme" title="Toggle theme">
+        <i data-lucide="moon" id="theme-toggle-icon"></i>
+    </button>
+
+    <!-- Toast container for notifications -->
+    <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+    <!-- Main Auth Wrapper Card -->
+    <main class="auth-wrapper" id="auth-card-wrapper">
+        <div class="auth-container">
+            
+            <!-- 1. LOGIN FORM PANEL -->
+            <section class="form-panel login-panel" id="login-panel">
+                <div class="mascot-container">
+                    <svg class="mascot-svg" viewBox="0 0 100 100" width="90" height="90" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="blob-grad-login" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="var(--primary-color)" />
+                                <stop offset="100%" stop-color="var(--secondary-color)" />
+                            </linearGradient>
+                        </defs>
+                        <path class="mascot-body" d="M15,80 Q10,25 50,20 Q90,25 85,80 Q50,85 15,80 Z" fill="url(#blob-grad-login)" />
+                        <circle class="eye-white" cx="35" cy="45" r="9" fill="white" />
+                        <circle class="pupil left-pupil" cx="35" cy="45" r="4" fill="#09090b" style="transform-origin: 35px 45px;" />
+                        <circle class="eye-white" cx="65" cy="45" r="9" fill="white" />
+                        <circle class="pupil right-pupil" cx="65" cy="45" r="4" fill="#09090b" style="transform-origin: 65px 45px;" />
+                        <path class="eyebrow left-eyebrow" d="M28,31 Q35,31 38,33" stroke="#09090b" stroke-width="2" stroke-linecap="round" fill="none" style="transform-origin: 33px 32px; transition: transform 0.3s ease;" />
+                        <path class="eyebrow right-eyebrow" d="M72,31 Q65,31 62,33" stroke="#09090b" stroke-width="2" stroke-linecap="round" fill="none" style="transform-origin: 67px 32px; transition: transform 0.3s ease;" />
+                        <path class="mascot-mouth" d="M43,62 Q50,68 57,62" stroke="#09090b" stroke-width="3" stroke-linecap="round" fill="none" style="transform-origin: 50px 65px; transition: all 0.3s ease;" />
+                        <path class="mascot-hand hand-left" d="M12,85 Q22,85 22,80" stroke="rgba(255,255,255,0.75)" stroke-width="5" stroke-linecap="round" fill="none" />
+                        <path class="mascot-hand hand-right" d="M88,85 Q78,85 78,80" stroke="rgba(255,255,255,0.75)" stroke-width="5" stroke-linecap="round" fill="none" />
+                    </svg>
+                </div>
+                <div class="form-header">
+                    <h2>Welcome back</h2>
+                    <p>Welcome back! Please enter your details.</p>
+                </div>
+
+                <form id="login-form" novalidate>
+                    <!-- Email input -->
+                    <div class="form-group">
+                        <i data-lucide="mail" class="input-icon"></i>
+                        <input type="email" id="login-email" class="form-input" placeholder="Email" required autocomplete="email">
+                        <label for="login-email" class="form-label">Email Address</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-group">
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" id="login-password" class="form-input" placeholder="Password" required autocomplete="current-password">
+                        <label for="login-password" class="form-label">Password</label>
+                        <i data-lucide="eye" class="password-toggle" id="login-password-toggle" role="button" aria-label="Toggle password visibility"></i>
+                    </div>
+
+                    <!-- Utilities (Remember me & Forgot Password) -->
+                    <div class="form-utils">
+                        <label class="checkbox-container" id="lbl-remember">
+                            <input type="checkbox" id="login-remember">
+                            <span>Remember for 30 days</span>
+                        </label>
+                        <a href="#" class="forgot-link" id="trigger-forgot-password">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary submit-btn" id="btn-login-submit">
+                        Sign in
+                    </button>
+                </form>
+
+                <!-- Social Sign In Option -->
+                <div class="separator">Or sign in with</div>
+                <div class="social-grid">
+                    <button class="social-btn" id="social-google-login" title="Sign in with Google" aria-label="Sign in with Google">
+                        <i data-lucide="chrome"></i>
+                    </button>
+                    <button class="social-btn" id="social-apple-login" title="Sign in with Apple" aria-label="Sign in with Apple">
+                        <!-- Apple SVG or Lucide logo icon placeholder -->
+                        <i data-lucide="apple"></i>
+                    </button>
+                    <button class="social-btn" id="social-github-login" title="Sign in with GitHub" aria-label="Sign in with GitHub">
+                        <i data-lucide="github"></i>
+                    </button>
+                </div>
+
+                <!-- Responsive Switch trigger (visible only on mobile/tablet) -->
+                <div class="mobile-switch-text">
+                    Don't have an account? 
+                    <span class="mobile-switch-link" id="mobile-to-signup">Sign up</span>
+                </div>
+            </section>
+
+            <!-- 2. SIGN UP (REGISTER) FORM PANEL -->
+            <section class="form-panel signup-panel" id="signup-panel">
+                <div class="mascot-container">
+                    <svg class="mascot-svg" viewBox="0 0 100 100" width="90" height="90" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="blob-grad-signup" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="var(--primary-color)" />
+                                <stop offset="100%" stop-color="var(--secondary-color)" />
+                            </linearGradient>
+                        </defs>
+                        <path class="mascot-body" d="M15,80 Q10,25 50,20 Q90,25 85,80 Q50,85 15,80 Z" fill="url(#blob-grad-signup)" />
+                        <circle class="eye-white" cx="35" cy="45" r="9" fill="white" />
+                        <circle class="pupil left-pupil" cx="35" cy="45" r="4" fill="#09090b" style="transform-origin: 35px 45px;" />
+                        <circle class="eye-white" cx="65" cy="45" r="9" fill="white" />
+                        <circle class="pupil right-pupil" cx="65" cy="45" r="4" fill="#09090b" style="transform-origin: 65px 45px;" />
+                        <path class="eyebrow left-eyebrow" d="M28,31 Q35,31 38,33" stroke="#09090b" stroke-width="2" stroke-linecap="round" fill="none" style="transform-origin: 33px 32px; transition: transform 0.3s ease;" />
+                        <path class="eyebrow right-eyebrow" d="M72,31 Q65,31 62,33" stroke="#09090b" stroke-width="2" stroke-linecap="round" fill="none" style="transform-origin: 67px 32px; transition: transform 0.3s ease;" />
+                        <path class="mascot-mouth" d="M43,62 Q50,68 57,62" stroke="#09090b" stroke-width="3" stroke-linecap="round" fill="none" style="transform-origin: 50px 65px; transition: all 0.3s ease;" />
+                        <path class="mascot-hand hand-left" d="M12,85 Q22,85 22,80" stroke="rgba(255,255,255,0.75)" stroke-width="5" stroke-linecap="round" fill="none" />
+                        <path class="mascot-hand hand-right" d="M88,85 Q78,85 78,80" stroke="rgba(255,255,255,0.75)" stroke-width="5" stroke-linecap="round" fill="none" />
+                    </svg>
+                </div>
+                <div class="form-header">
+                    <h2>Create account</h2>
+                    <p>Start your journey with us today.</p>
+                </div>
+
+                <form id="signup-form" novalidate>
+                    <!-- Username input -->
+                    <div class="form-group">
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" id="signup-username" class="form-input" placeholder="Username" required autocomplete="username">
+                        <label for="signup-username" class="form-label">Full Name</label>
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-group">
+                        <i data-lucide="mail" class="input-icon"></i>
+                        <input type="email" id="signup-email" class="form-input" placeholder="Email" required autocomplete="email">
+                        <label for="signup-email" class="form-label">Email Address</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-group">
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" id="signup-password" class="form-input" placeholder="Password" required autocomplete="new-password">
+                        <label for="signup-password" class="form-label">Password</label>
+                        <i data-lucide="eye" class="password-toggle" id="signup-password-toggle" role="button" aria-label="Toggle password visibility"></i>
+                    </div>
+
+                    <!-- Password Strength Meter -->
+                    <div class="strength-meter-container" id="strength-meter-container">
+                        <div class="strength-meter-bar">
+                            <div class="strength-fill" id="strength-bar-fill"></div>
+                        </div>
+                        <div class="strength-label">
+                            <span id="strength-text">Password Strength</span>
+                            <span id="strength-percentage">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password input -->
+                    <div class="form-group">
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" id="signup-confirm-password" class="form-input" placeholder="Confirm Password" required autocomplete="new-password">
+                        <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+                        <i data-lucide="eye" class="password-toggle" id="signup-confirm-toggle" role="button" aria-label="Toggle password visibility"></i>
+                    </div>
+
+                    <!-- Terms Agreement -->
+                    <div class="form-utils">
+                        <label class="checkbox-container" id="lbl-agree">
+                            <input type="checkbox" id="signup-agree" required>
+                            <span>I agree to the <a href="#" class="forgot-link">Terms & Conditions</a></span>
+                        </label>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary submit-btn" id="btn-signup-submit">
+                        Get Started
+                    </button>
+                </form>
+
+                <!-- Responsive Switch trigger (visible only on mobile/tablet) -->
+                <div class="mobile-switch-text">
+                    Already have an account? 
+                    <span class="mobile-switch-link" id="mobile-to-login">Sign in</span>
+                </div>
+            </section>
+
+            <!-- 3. DESKTOP SLIDING OVERLAY PANEL -->
+            <div class="overlay-panel-wrapper" id="overlay-wrapper">
+                <div class="overlay-panel-content">
+                    
+                    <!-- Left Side (Shown when Sign Up is Active) - Prompts to login -->
+                    <div class="overlay-slide overlay-slide-left">
+                        <div class="overlay-graphic">
+                            <svg class="blobs-svg" viewBox="0 0 180 140" width="180" height="140" aria-hidden="true">
+                                <!-- Purple Blob -->
+                                <g class="blob-purple">
+                                    <path d="M35,130 L35,35 A20,20 0 0,1 75,35 L75,130 Z" fill="#8b5cf6" />
+                                    <circle class="eye-white" cx="47" cy="48" r="6" fill="white" />
+                                    <circle class="pupil" cx="47" cy="48" r="2.5" fill="#1e1b4b" style="transform-origin: 47px 48px;" />
+                                    <path class="eye-closed" d="M42,48 Q47,43 52,48" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" style="display: none;" />
+                                    <circle class="eye-white" cx="63" cy="48" r="6" fill="white" />
+                                    <circle class="pupil" cx="63" cy="48" r="2.5" fill="#1e1b4b" style="transform-origin: 63px 48px;" />
+                                    <path class="eye-closed" d="M58,48 Q63,43 68,48" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" style="display: none;" />
+                                    <path class="mouth" d="M52,65 Q55,67 58,65" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" />
+                                    <path class="eyebrow left-eyebrow" d="M42,39 Q47,39 50,41" stroke="#1e1b4b" stroke-width="1.5" stroke-linecap="round" fill="none" style="transform-origin: 46px 40px; transition: transform 0.3s ease;" />
+                                    <path class="eyebrow right-eyebrow" d="M68,39 Q63,39 60,41" stroke="#1e1b4b" stroke-width="1.5" stroke-linecap="round" fill="none" style="transform-origin: 64px 40px; transition: transform 0.3s ease;" />
+                                    <path class="sweat-drop" d="M28,34 Q26,38 26,41 A2.5,2.5 0 1,0 31,41 Q31,38 29,34 Z" fill="#60a5fa" style="transform-origin: 29px 38px; opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease;" />
+                                </g>
+
+                                <!-- Pink Blob -->
+                                <g class="blob-pink">
+                                    <path d="M75,130 L75,55 A20,20 0 0,1 115,55 L115,130 Z" fill="#ec4899" />
+                                    <circle class="eye-white" cx="87" cy="68" r="6" fill="white" />
+                                    <circle class="pupil" cx="87" cy="68" r="2.5" fill="#1e1b4b" style="transform-origin: 87px 68px;" />
+                                    <circle class="eye-white" cx="103" cy="68" r="6" fill="white" />
+                                    <circle class="pupil" cx="103" cy="68" r="2.5" fill="#1e1b4b" style="transform-origin: 103px 68px;" />
+                                    <path class="mouth" d="M92,85 Q95,87 98,85" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" />
+                                </g>
+
+                                <!-- Yellow Blob -->
+                                <g class="blob-yellow">
+                                    <path d="M115,130 L115,75 A20,20 0 0,1 155,75 L155,130 Z" fill="#eab308" />
+                                    <circle class="eye-white" cx="127" cy="88" r="6" fill="white" />
+                                    <circle class="pupil" cx="127" cy="88" r="2.5" fill="#1e1b4b" style="transform-origin: 127px 88px;" />
+                                    <circle class="eye-white" cx="143" cy="88" r="6" fill="white" />
+                                    <circle class="pupil" cx="143" cy="88" r="2.5" fill="#1e1b4b" style="transform-origin: 143px 88px;" />
+                                    <path class="mouth" d="M132,102 Q135,104 138,102" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" />
+                                </g>
+
+                                <!-- Orange Blob -->
+                                <g class="blob-orange">
+                                    <path d="M15,130 C15,90 35,80 65,80 C95,80 115,90 115,130 Z" fill="#f97316" />
+                                    <circle class="eye-white" cx="50" cy="100" r="6" fill="white" />
+                                    <circle class="pupil" cx="50" cy="100" r="2.5" fill="#1e1b4b" style="transform-origin: 50px 100px;" />
+                                    <circle class="eye-white" cx="70" cy="100" r="6" fill="white" />
+                                    <circle class="pupil" cx="70" cy="100" r="2.5" fill="#1e1b4b" style="transform-origin: 70px 100px;" />
+                                    <path class="mouth" d="M57,113 Q60,116 63,113" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" />
+                                </g>
+                            </svg>
+                        </div>
+                        <h2>Welcome back!</h2>
+                        <p>Keep connected with us by logging in with your credentials to sync all personal journal entries.</p>
+                        <button class="btn btn-outline" id="desktop-to-login">
+                            Sign In
+                        </button>
+                    </div>
+
+                    <!-- Right Side (Shown when Login is Active) - Prompts to sign up -->
+                    <div class="overlay-slide overlay-slide-right">
+                        <div class="overlay-graphic">
+                            <svg class="blobs-svg" viewBox="0 0 180 140" width="180" height="140" aria-hidden="true">
+                                <!-- Purple Blob -->
+                                <g class="blob-purple">
+                                    <path d="M35,130 L35,35 A20,20 0 0,1 75,35 L75,130 Z" fill="#8b5cf6" />
+                                    <circle class="eye-white" cx="47" cy="48" r="6" fill="white" />
+                                    <circle class="pupil" cx="47" cy="48" r="2.5" fill="#1e1b4b" style="transform-origin: 47px 48px;" />
+                                    <path class="eye-closed" d="M42,48 Q47,43 52,48" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" style="display: none;" />
+                                    <circle class="eye-white" cx="63" cy="48" r="6" fill="white" />
+                                    <circle class="pupil" cx="63" cy="48" r="2.5" fill="#1e1b4b" style="transform-origin: 63px 48px;" />
+                                    <path class="eye-closed" d="M58,48 Q63,43 68,48" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" style="display: none;" />
+                                    <path class="mouth" d="M52,65 Q55,67 58,65" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" />
+                                    <path class="eyebrow left-eyebrow" d="M42,39 Q47,39 50,41" stroke="#1e1b4b" stroke-width="1.5" stroke-linecap="round" fill="none" style="transform-origin: 46px 40px; transition: transform 0.3s ease;" />
+                                    <path class="eyebrow right-eyebrow" d="M68,39 Q63,39 60,41" stroke="#1e1b4b" stroke-width="1.5" stroke-linecap="round" fill="none" style="transform-origin: 64px 40px; transition: transform 0.3s ease;" />
+                                    <path class="sweat-drop" d="M28,34 Q26,38 26,41 A2.5,2.5 0 1,0 31,41 Q31,38 29,34 Z" fill="#60a5fa" style="transform-origin: 29px 38px; opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease;" />
+                                </g>
+
+                                <!-- Pink Blob -->
+                                <g class="blob-pink">
+                                    <path d="M75,130 L75,55 A20,20 0 0,1 115,55 L115,130 Z" fill="#ec4899" />
+                                    <circle class="eye-white" cx="87" cy="68" r="6" fill="white" />
+                                    <circle class="pupil" cx="87" cy="68" r="2.5" fill="#1e1b4b" style="transform-origin: 87px 68px;" />
+                                    <circle class="eye-white" cx="103" cy="68" r="6" fill="white" />
+                                    <circle class="pupil" cx="103" cy="68" r="2.5" fill="#1e1b4b" style="transform-origin: 103px 68px;" />
+                                    <path class="mouth" d="M92,85 Q95,87 98,85" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" />
+                                </g>
+
+                                <!-- Yellow Blob -->
+                                <g class="blob-yellow">
+                                    <path d="M115,130 L115,75 A20,20 0 0,1 155,75 L155,130 Z" fill="#eab308" />
+                                    <circle class="eye-white" cx="127" cy="88" r="6" fill="white" />
+                                    <circle class="pupil" cx="127" cy="88" r="2.5" fill="#1e1b4b" style="transform-origin: 127px 88px;" />
+                                    <circle class="eye-white" cx="143" cy="88" r="6" fill="white" />
+                                    <circle class="pupil" cx="143" cy="88" r="2.5" fill="#1e1b4b" style="transform-origin: 143px 88px;" />
+                                    <path class="mouth" d="M132,102 Q135,104 138,102" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" />
+                                </g>
+
+                                <!-- Orange Blob -->
+                                <g class="blob-orange">
+                                    <path d="M15,130 C15,90 35,80 65,80 C95,80 115,90 115,130 Z" fill="#f97316" />
+                                    <circle class="eye-white" cx="50" cy="100" r="6" fill="white" />
+                                    <circle class="pupil" cx="50" cy="100" r="2.5" fill="#1e1b4b" style="transform-origin: 50px 100px;" />
+                                    <circle class="eye-white" cx="70" cy="100" r="6" fill="white" />
+                                    <circle class="pupil" cx="70" cy="100" r="2.5" fill="#1e1b4b" style="transform-origin: 70px 100px;" />
+                                    <path class="mouth" d="M57,113 Q60,116 63,113" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" fill="none" />
+                                </g>
+                            </svg>
+                        </div>
+                        <h2>Join Us Today!</h2>
+                        <p>Sign up to customize your dashboard, analyze statistics, and save your workspace configurations.</p>
+                        <button class="btn btn-outline" id="desktop-to-signup">
+                            Create Account
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 4. FORGOT PASSWORD MODAL OVERLAY -->
+    <div class="modal-overlay" id="forgot-password-modal">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="form-header">
+                <h2>Reset password</h2>
+                <p>Enter your account email and we'll send a password recovery code.</p>
+            </div>
+            <form id="forgot-form" novalidate>
+                <div class="form-group">
+                    <i data-lucide="mail" class="input-icon"></i>
+                    <input type="email" id="forgot-email" class="form-input" placeholder="Email" required autocomplete="email">
+                    <label for="forgot-email" class="form-label">Email Address</label>
+                </div>
+                <button type="submit" class="btn btn-primary submit-btn" id="btn-forgot-submit">
+                    Send recovery link
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Core Interactive Logic Script -->
+    <script src="auth.js"></script>
+    <script>
+        // Initialize Lucide icons on load
+        lucide.createIcons();
+    </script>
+</body>
+</html>

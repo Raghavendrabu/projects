@@ -1,0 +1,1 @@
+from src.detection.face_detection import FaceDetector

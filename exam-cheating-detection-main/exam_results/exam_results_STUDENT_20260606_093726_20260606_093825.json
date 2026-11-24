@@ -1,0 +1,217 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260606_093726",
+    "name": "raghu",
+    "exam": "Data Structures Mid Term",
+    "course": "Online Exam"
+  },
+  "exam_name": "Data Structures Mid Term",
+  "exam_code": "EX-DS-401",
+  "start_time": "2026-06-06T09:37:26.258221",
+  "end_time": "2026-06-06T09:38:25.375477",
+  "duration_minutes": 30,
+  "answers": {},
+  "violations": [
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "09:37:26",
+      "timestamp": "20260606_093726_317660",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.21168896751924499,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:37:25"
+        },
+        "image_gridfs_id": "6a239cfe38f1a4e4b8107cf6"
+      }
+    },
+    {
+      "type": "MOUTH_MOVING",
+      "time": "09:37:31",
+      "timestamp": "20260606_093731_523382",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.26524845519968054,
+          "mouth_moving": true,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:37:31"
+        },
+        "image_gridfs_id": "6a239d0338f1a4e4b8107cf9"
+      }
+    },
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "09:37:38",
+      "timestamp": "20260606_093738_212893",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.25638594786861757,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:37:37"
+        },
+        "image_gridfs_id": "6a239d0a38f1a4e4b8107cff"
+      }
+    },
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "09:37:48",
+      "timestamp": "20260606_093748_567307",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.23837118373745836,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:37:48"
+        },
+        "image_gridfs_id": "6a239d1438f1a4e4b8107d05"
+      }
+    },
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "09:37:59",
+      "timestamp": "20260606_093759_287429",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2923606048861701,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:37:58"
+        },
+        "image_gridfs_id": "6a239d1f38f1a4e4b8107d0b"
+      }
+    },
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "09:38:09",
+      "timestamp": "20260606_093809_561790",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2590663791785463,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:38:09"
+        },
+        "image_gridfs_id": "6a239d2938f1a4e4b8107d11"
+      }
+    },
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "09:38:20",
+      "timestamp": "20260606_093820_095779",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.29708566426819105,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:38:19"
+        },
+        "image_gridfs_id": "6a239d3438f1a4e4b8107d17"
+      }
+    },
+    {
+      "type": "TAB_SWITCHED",
+      "time": "09:38:21",
+      "timestamp": "20260606_093821_666679",
+      "metadata": {
+        "details": "User switched tab or minimized window"
+      }
+    }
+  ],
+  "warning_count": 3,
+  "terminated": true,
+  "status": "terminated",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260606_093726.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260606_093726.mp4",
+    "video_gridfs_id": "6a239d3638f1a4e4b8107d1a",
+    "screen_gridfs_id": "6a239d3738f1a4e4b8107dc1"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Paris",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Python",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "Not Answered",
+      "correct_answer": "MySQL",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "jaaias",
+      "student_answer": "Not Answered",
+      "correct_answer": "d",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "hi",
+      "student_answer": "Not Answered",
+      "correct_answer": "re",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "yasin",
+      "student_answer": "Not Answered",
+      "correct_answer": "yasinn",
+      "is_correct": false,
+      "type": "text"
+    }
+  ],
+  "score": {
+    "correct": 0,
+    "total": 8,
+    "percentage": 0
+  }
+}

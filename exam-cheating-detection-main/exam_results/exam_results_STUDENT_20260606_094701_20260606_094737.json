@@ -1,0 +1,131 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260606_094701",
+    "name": "e",
+    "exam": "ex",
+    "course": "Online Exam"
+  },
+  "exam_name": "ex",
+  "exam_code": "exam",
+  "start_time": "2026-06-06T09:47:01.286505",
+  "end_time": "2026-06-06T09:47:37.070961",
+  "duration_minutes": 30,
+  "answers": {
+    "0": 2,
+    "1": 1,
+    "2": 0
+  },
+  "violations": [
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "09:47:12",
+      "timestamp": "20260606_094712_069676",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2975470651510922,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:47:11"
+        },
+        "image_gridfs_id": "6a239f48d744abc498415fed"
+      }
+    },
+    {
+      "type": "MOUTH_MOVING",
+      "time": "09:47:15",
+      "timestamp": "20260606_094715_085577",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2945132391215292,
+          "mouth_moving": true,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:47:14"
+        },
+        "image_gridfs_id": "6a239f4bd744abc498415ff0"
+      }
+    },
+    {
+      "type": "GAZE_AWAY",
+      "time": "09:47:29",
+      "timestamp": "20260606_094729_787954",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "left",
+          "eye_ratio": 0.25775485171053486,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 09:47:29"
+        },
+        "image_gridfs_id": "6a239f59d744abc498415ff3"
+      }
+    }
+  ],
+  "warning_count": 3,
+  "terminated": true,
+  "status": "terminated",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260606_094701.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260606_094701.mp4",
+    "video_gridfs_id": "6a239f5fd744abc498415ff6",
+    "screen_gridfs_id": "6a239f60d744abc498416051"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Paris",
+      "correct_answer": "Paris",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Python",
+      "correct_answer": "Python",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Central Processing Unit",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "Not Answered",
+      "correct_answer": "MySQL",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "haah",
+      "student_answer": "Not Answered",
+      "correct_answer": "ha",
+      "is_correct": false,
+      "type": "text"
+    }
+  ],
+  "score": {
+    "correct": 3,
+    "total": 6,
+    "percentage": 50
+  }
+}

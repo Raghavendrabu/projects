@@ -1,0 +1,71 @@
+{
+  "student_info": {
+    "id": "test_cleanup_student_999",
+    "name": "Cleanup Test Student",
+    "exam": "Cleanup Verification Exam",
+    "course": "Online Exam"
+  },
+  "exam_name": "Cleanup Verification Exam",
+  "exam_code": "CLEANUP_VERIFY",
+  "start_time": "2026-06-13T06:09:51.179621",
+  "end_time": "2026-06-13T06:09:51.316818",
+  "duration_minutes": 30,
+  "answers": {
+    "0": "1",
+    "1": "3"
+  },
+  "violations": [],
+  "warning_count": 0,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "c:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_test_cleanup_student_999.mp4",
+    "screen": "c:\\Projects\\exam-cheating-detection-main\\recordings\\screen_test_cleanup_student_999.mp4",
+    "video_gridfs_id": "6a2ca6d721e85413d65a4146",
+    "screen_gridfs_id": "6a2ca6d721e85413d65a4148"
+  },
+  "report_path": "c:\\Projects\\exam-cheating-detection-main\\reports\\generated\\report_test_cleanup_student_999.pdf",
+  "report_gridfs_id": "6a2ca6d721e85413d65a414a",
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Berlin",
+      "correct_answer": "Paris",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Ruby",
+      "correct_answer": "Python",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "Not Answered",
+      "correct_answer": "MySQL",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": false,
+      "type": "mcq"
+    }
+  ],
+  "score": {
+    "correct": 0,
+    "total": 5,
+    "percentage": 0
+  }
+}

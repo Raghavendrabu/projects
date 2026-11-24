@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exam Login - Cheating Detection System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 450px;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h2 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #856404;
+        }
+        
+        .warning-box h4 {
+            margin-bottom: 8px;
+        }
+        
+        .feature-list {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .feature-list li {
+            margin: 5px 0;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>📝 Online Exam Portal</h2>
+        <div class="subtitle">AI-Powered Proctoring System</div>
+        
+        <form action="/start_exam" method="POST">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="student_name" placeholder="Enter your full name" required autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label>Select Exam</label>
+                <select name="exam_code" id="exam-select" required onchange="updateExamName(this)" style="width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #e0e0e0; font-size: 16px; outline: none; cursor: pointer;">
+                    <option value="EX-DS-401" data-name="Data Structures Mid Term" data-duration="90 Minutes">EX-DS-401 - Data Structures Mid Term</option>
+                    <option value="EX-DB-204" data-name="Database Management" data-duration="60 Minutes">EX-DB-204 - Database Management</option>
+                    <option value="EX-OS-302" data-name="Operating Systems Final" data-duration="120 Minutes">EX-OS-302 - Operating Systems Final</option>
+                </select>
+                <input type="hidden" name="exam_name" id="exam-name-hidden" value="Data Structures Mid Term">
+            </div>
+            
+            <div class="form-group">
+                <label>Exam Duration</label>
+                <select name="duration" id="exam-duration-select" required style="width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #e0e0e0; font-size: 16px; outline: none; cursor: pointer;">
+                    <option value="30">30 Minutes</option>
+                    <option value="60" selected>60 Minutes</option>
+                    <option value="90">90 Minutes</option>
+                    <option value="120">120 Minutes</option>
+                </select>
+            </div>
+            
+            <button type="submit">Start Exam 🚀</button>
+        </form>
+        
+        <div class="warning-box">
+            <h4>⚠️ Important Instructions</h4>
+            <ul class="feature-list">
+                <li>📹 Webcam will be active during the entire exam</li>
+                <li>⏱️ Timer will start immediately after clicking Start</li>
+                <li>📝 Answer all questions before submitting</li>
+                <li>🚫 Do not close or refresh the browser window</li>
+                <li>✅ Click Submit Exam when finished</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/admin_exams')
+                .then(res => res.json())
+                .then(exams => {
+                    const select = document.getElementById('exam-select');
+                    if (exams && exams.length > 0) {
+                        select.innerHTML = exams.map(e => `
+                            <option value="${e.exam_code}" data-name="${e.exam_name}" data-duration="${e.duration}">${e.exam_code} - ${e.exam_name} (${e.duration})</option>
+                        `).join('');
+                        updateExamName(select);
+                    }
+                })
+                .catch(err => console.error("Error loading exams dropdown:", err));
+        });
+
+        function updateExamName(select) {
+            const selectedOption = select.options[select.selectedIndex];
+            if (!selectedOption) return;
+            const name = selectedOption.getAttribute('data-name');
+            const durationText = selectedOption.getAttribute('data-duration') || '60 Minutes';
+            
+            document.getElementById('exam-name-hidden').value = name;
+            
+            // Auto select duration matching option
+            const durVal = parseInt(durationText) || 60;
+            const durSelect = document.getElementById('exam-duration-select');
+            if (durSelect) {
+                durSelect.value = durVal;
+            }
+        }
+    </script>
+</body>
+</html>

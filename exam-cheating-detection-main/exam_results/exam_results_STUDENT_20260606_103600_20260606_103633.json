@@ -1,0 +1,160 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260606_103600",
+    "name": "hi",
+    "exam": "Data Structures Mid Term",
+    "course": "Online Exam"
+  },
+  "exam_name": "Data Structures Mid Term",
+  "exam_code": "EX-DS-401",
+  "start_time": "2026-06-06T10:36:00.001835",
+  "end_time": "2026-06-06T10:36:33.269754",
+  "duration_minutes": 30,
+  "answers": {
+    "7": "yasinn"
+  },
+  "violations": [
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "10:36:00",
+      "timestamp": "20260606_103600_248077",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.24189025679845355,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 10:35:59"
+        },
+        "image_gridfs_id": "6a23aab8d744abc498416207"
+      }
+    },
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "10:36:10",
+      "timestamp": "20260606_103610_336787",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.24575492995658216,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 10:36:10"
+        },
+        "image_gridfs_id": "6a23aac2d744abc49841620d"
+      }
+    },
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "10:36:20",
+      "timestamp": "20260606_103620_436301",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.25077151039098244,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 10:36:20"
+        },
+        "image_gridfs_id": "6a23aaccd744abc498416213"
+      }
+    },
+    {
+      "type": "MULTIPLE_FACES",
+      "time": "10:36:30",
+      "timestamp": "20260606_103630_569658",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "right",
+          "eye_ratio": 0.4209261490524714,
+          "mouth_moving": false,
+          "multiple_faces": true,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 10:36:30"
+        },
+        "image_gridfs_id": "6a23aad6d744abc498416219"
+      }
+    }
+  ],
+  "warning_count": 1,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260606_103600.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260606_103600.mp4",
+    "video_gridfs_id": "6a23aad8d744abc49841621c",
+    "screen_gridfs_id": "6a23aad8d744abc498416270"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Paris",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Python",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "Not Answered",
+      "correct_answer": "MySQL",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "jaaias",
+      "student_answer": "Not Answered",
+      "correct_answer": "d",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "hi",
+      "student_answer": "Not Answered",
+      "correct_answer": "re",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "yasin",
+      "student_answer": "yasinn",
+      "correct_answer": "yasinn",
+      "is_correct": true,
+      "type": "text"
+    }
+  ],
+  "score": {
+    "correct": 1,
+    "total": 8,
+    "percentage": 12
+  }
+}

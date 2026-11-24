@@ -1,0 +1,51 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260523_190905",
+    "name": "rr",
+    "exam": "r",
+    "course": "Online Exam"
+  },
+  "exam_name": "r",
+  "start_time": "2026-05-23T19:09:05.697515",
+  "end_time": "2026-05-23T19:09:24.649854",
+  "duration_minutes": 60,
+  "answers": {},
+  "violations": [
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "19:09:09",
+      "timestamp": "20260523_190909_026504",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.3,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-05-23 19:09:08"
+        },
+        "image_gridfs_id": "6a11adfd768e33fe017f45b8"
+      }
+    },
+    {
+      "type": "TAB_SWITCHED",
+      "time": "19:09:23",
+      "timestamp": "20260523_190923_666501",
+      "metadata": {
+        "details": "User switched tab or minimized window"
+      }
+    }
+  ],
+  "warning_count": 3,
+  "terminated": true,
+  "status": "terminated",
+  "recordings": {
+    "video": "./recordings\\webcam_20260523_190905.mp4",
+    "screen": "./recordings\\screen_20260523_190905.mp4",
+    "video_gridfs_id": "6a11ae0c768e33fe017f45bb",
+    "screen_gridfs_id": "6a11ae0c768e33fe017f45c3"
+  },
+  "report_path": null,
+  "report_gridfs_id": null
+}

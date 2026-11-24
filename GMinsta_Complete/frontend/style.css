@@ -1,0 +1,74 @@
+/* Instagram-like styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #fafafa;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background-color: #000 !important;
+}
+
+body.dark-theme .header,
+body.dark-theme .bottom-nav,
+body.dark-theme .stories,
+body.dark-theme .post,
+body.dark-theme .search-header,
+body.dark-theme .profile,
+body.dark-theme .dropdown,
+body.dark-theme .modal-content,
+body.dark-theme .upload-area,
+body.dark-theme .caption-area {
+    background-color: #000 !important;
+    border-color: #262626 !important;
+}
+
+body.dark-theme .header span,
+body.dark-theme .bottom-nav i,
+body.dark-theme .actions i,
+body.dark-theme .likes,
+body.dark-theme .caption,
+body.dark-theme .story p,
+body.dark-theme .post-header b,
+body.dark-theme .comments-btn,
+body.dark-theme .timestamp {
+    color: #fff !important;
+}
+
+body.dark-theme .story-ring img {
+    border-color: #000;
+}
+
+body.dark-theme .search-box input,
+body.dark-theme .dropdown div,
+body.dark-theme .caption-area textarea {
+    color: #fff !important;
+    background: #000;
+}
+
+/* Heart animation */
+.heart-animation {
+    animation: heartBeat 0.3s ease-in-out;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Story ring gradient */
+.story-ring {
+    background: linear-gradient(45deg, #feda75, #d62976, #962fbf);
+}
+
+/* Hide scrollbar */
+.stories::-webkit-scrollbar {
+    display: none;
+}

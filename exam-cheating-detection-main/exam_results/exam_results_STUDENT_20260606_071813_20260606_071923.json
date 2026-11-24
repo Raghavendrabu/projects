@@ -1,0 +1,116 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260606_071813",
+    "name": "da",
+    "exam": "Data Structures Mid Term",
+    "course": "Online Exam"
+  },
+  "exam_name": "Data Structures Mid Term",
+  "exam_code": "EX-DS-401",
+  "start_time": "2026-06-06T07:18:13.062727",
+  "end_time": "2026-06-06T07:19:23.497111",
+  "duration_minutes": 30,
+  "answers": {
+    "0": 2,
+    "1": 1,
+    "2": 0,
+    "3": 2,
+    "4": 0,
+    "5": 1,
+    "6": 1,
+    "7": "yasinn"
+  },
+  "violations": [
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "07:18:15",
+      "timestamp": "20260606_071814_954688",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2622197565785078,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-06-06 07:18:14"
+        },
+        "image_gridfs_id": "6a237c5e03007263390ee968"
+      }
+    }
+  ],
+  "warning_count": 1,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260606_071814.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260606_071813.mp4",
+    "video_gridfs_id": "6a237ca103007263390ee96b",
+    "screen_gridfs_id": "6a237ca103007263390eea3c"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Paris",
+      "correct_answer": "Paris",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Python",
+      "correct_answer": "Python",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Central Processing Unit",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "MySQL",
+      "correct_answer": "MySQL",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "HyperText Transfer Protocol",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "jaaias",
+      "student_answer": "fe",
+      "correct_answer": "d",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "hi",
+      "student_answer": "re",
+      "correct_answer": "re",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "yasin",
+      "student_answer": "yasinn",
+      "correct_answer": "yasinn",
+      "is_correct": true,
+      "type": "text"
+    }
+  ],
+  "score": {
+    "correct": 7,
+    "total": 8,
+    "percentage": 87
+  }
+}

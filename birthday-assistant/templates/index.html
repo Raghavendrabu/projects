@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIUX Birthday Assistant (UE24CS3540)</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <div class="header-info">
+                <h1>CIUX Birthday Assistant</h1>
+                <span class="course-badge">UE24CS3540 &bull; Conversational Interfaces & UX</span>
+            </div>
+            <div class="header-actions">
+                <div class="version-selector-container">
+                    <label for="versionSelect" class="version-label">Architecture:</label>
+                    <select id="versionSelect" class="version-dropdown" title="Select architecture version">
+                        <option value="v1">V1 — Rule-Based (Monolithic)</option>
+                        <option value="v2">V2 — NLU + Service (Stateless)</option>
+                        <option value="v3">V3 — Dialogue State & Clarification</option>
+                        <option value="v4">V4 — Grounded LLM + Rule Fallback</option>
+                        <option value="v5" selected>V5 — Full Multimodal (Voice + V4)</option>
+                    </select>
+                </div>
+                <button id="resetBtn" class="btn btn-secondary" title="Reset conversational dialogue state">Reset</button>
+                <label class="debug-toggle">
+                    <input type="checkbox" id="debugToggle">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">Debug NLU</span>
+                </label>
+            </div>
+        </header>
+
+        <!-- Version Explainer & Quick Test Bar -->
+        <div id="versionBanner" class="version-banner">
+            <div class="banner-top">
+                <span class="version-badge" id="versionBadge">V5 ACTIVE</span>
+                <span class="version-desc" id="versionDesc">
+                    <strong>V5 Multimodal Voice Assistant:</strong> Hands-free Web Speech API (STT & TTS) with grounded V4 LLM/Rules NLU.
+                </span>
+            </div>
+            <div class="chip-container">
+                <span class="chip-label">Quick Test:</span>
+                <div id="chipList" class="chips">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+
+        <main id="chatWindow" class="chat-window">
+            <div class="message bot-message">
+                <div class="message-content">
+                    Hello! I am your Birthday Assistant. Use the <strong>Architecture dropdown</strong> above to switch between versions (V1 to V5) and observe how conversational limitations were discovered, logged, and solved.
+                </div>
+            </div>
+        </main>
+
+        <footer class="chat-input-area">
+            <form id="chatForm" class="input-form">
+                <input type="text" id="userInput" placeholder="Ask a question (e.g. When is Rahul Patil's birthday?)..." autocomplete="off" required>
+                <button type="button" id="micBtn" class="btn btn-mic" title="Voice Input (Speech-to-Text)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                    </svg>
+                </button>
+                <button type="submit" id="sendBtn" class="btn btn-primary">Send</button>
+            </form>
+        </footer>
+    </div>
+
+    <script src="/static/chat.js"></script>
+</body>
+</html>

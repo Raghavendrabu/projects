@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>GMInsta</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #fafafa;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #feda75, #d62976, #962fbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .icons i {
+            margin-left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #262626;
+        }
+
+        .stories {
+            display: flex;
+            overflow-x: auto;
+            padding: 16px;
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            gap: 16px;
+        }
+
+        .stories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story {
+            text-align: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .story-ring {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #feda75, #d62976, #962fbf);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+
+        .story-ring img {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+
+        .story p {
+            font-size: 12px;
+            color: #262626;
+            margin-top: 4px;
+        }
+
+        .post {
+            background: white;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+
+        .post-header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .post-header-left img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .post-header-left b {
+            font-size: 14px;
+            cursor: pointer;
+            color: #262626;
+        }
+
+        .post-img {
+            width: 100%;
+            max-height: 600px;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .actions {
+            padding: 8px 16px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .actions i {
+            font-size: 24px;
+            cursor: pointer;
+            color: #262626;
+        }
+
+        .likes {
+            padding: 0 16px 8px 16px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #262626;
+        }
+
+        .caption {
+            padding: 0 16px 8px 16px;
+            font-size: 14px;
+            color: #262626;
+        }
+
+        .caption b {
+            font-weight: 600;
+            margin-right: 6px;
+            cursor: pointer;
+        }
+
+        .comments-btn {
+            padding: 0 16px 8px 16px;
+            font-size: 14px;
+            color: #8e8e8e;
+            cursor: pointer;
+        }
+
+        .timestamp {
+            padding: 0 16px 16px 16px;
+            font-size: 10px;
+            color: #8e8e8e;
+        }
+
+        .heart-red {
+            color: #ed4956 !important;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            background: white;
+            border-top: 1px solid #dbdbdb;
+            z-index: 100;
+        }
+
+        .bottom-nav i {
+            font-size: 24px;
+            color: #262626;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 16px;
+            border-bottom: 1px solid #dbdbdb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 16px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .comment-item img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .comment-text {
+            font-size: 14px;
+        }
+
+        .comment-text b {
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        .comment-input-area {
+            display: flex;
+            padding: 12px 16px;
+            border-top: 1px solid #dbdbdb;
+            gap: 12px;
+        }
+
+        .comment-input-area input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .comment-input-area button {
+            background: none;
+            border: none;
+            color: #0095f6;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Story Viewer */
+        .story-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .story-viewer img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .story-viewer .close-story {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .story-viewer .story-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .story-viewer .story-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0;
+        }
+
+        .story-viewer .story-info span {
+            color: white;
+            font-weight: 600;
+        }
+
+        body.dark-theme {
+            background: #000;
+        }
+
+        body.dark-theme .header,
+        body.dark-theme .stories,
+        body.dark-theme .post,
+        body.dark-theme .bottom-nav,
+        body.dark-theme .modal-content {
+            background: #000;
+            border-color: #262626;
+        }
+
+        body.dark-theme .logo,
+        body.dark-theme .icons i,
+        body.dark-theme .actions i,
+        body.dark-theme .likes,
+        body.dark-theme .caption,
+        body.dark-theme .post-header-left b,
+        body.dark-theme .story p,
+        body.dark-theme .bottom-nav i,
+        body.dark-theme .modal-header {
+            color: #fff;
+        }
+
+        body.dark-theme .story-ring img {
+            border-color: #000;
+        }
+
+        .notification-badge {
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ed4956;
+            color: white;
+            font-size: 10px;
+            border-radius: 50%;
+            padding: 2px 5px;
+            min-width: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="logo">GMInsta</div>
+        <div class="icons">
+            <i class="fa-regular fa-heart" id="notificationIcon"></i>
+            <i class="fa-regular fa-paper-plane" onclick="location.href='messages.html'"></i>
+        </div>
+    </div>
+
+    <div class="stories" id="storiesContainer">
+        <div class="story" onclick="openCreateStory()">
+            <div class="story-ring">
+                <img src="https://randomuser.me/api/portraits/lego/1.jpg" id="yourStoryImg">
+            </div>
+            <p>Your story</p>
+        </div>
+    </div>
+
+    <div id="feedContainer"></div>
+
+    <div class="bottom-nav">
+        <i class="fa-solid fa-house" onclick="location.href='/'"></i>
+        <i class="fa-solid fa-magnifying-glass" onclick="location.href='search.html'"></i>
+        <i class="fa-regular fa-square-plus" onclick="location.href='post.html'"></i>
+        <i class="fa-regular fa-heart" onclick="location.href='notifications.html'"></i>
+        <i class="fa-regular fa-user" onclick="location.href='profile.html'"></i>
+    </div>
+
+    <!-- Comment Modal -->
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Comments</span>
+                <i class="fa-solid fa-xmark" onclick="closeCommentModal()" style="cursor:pointer; font-size:20px;"></i>
+            </div>
+            <div class="modal-body" id="commentsList"></div>
+            <div class="comment-input-area">
+                <input type="text" id="commentInput" placeholder="Add a comment...">
+                <button onclick="postComment()">Post</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story Viewer -->
+    <div id="storyViewer" class="story-viewer">
+        <i class="fa-solid fa-xmark close-story" onclick="closeStoryViewer()"></i>
+        <img id="storyImage" src="">
+        <div class="story-info">
+            <img id="storyAuthorImg" src="">
+            <span id="storyAuthorName"></span>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let token = null;
+        let currentPostId = null;
+
+        async function init() {
+            token = localStorage.getItem('gminsta_token');
+            const storedUser = localStorage.getItem('gminsta_currentUser');
+            
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+            } else {
+                const verifyRes = await fetch('/api/verify', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const verifyData = await verifyRes.json();
+                if (verifyData.success) {
+                    currentUser = verifyData.user;
+                    localStorage.setItem('gminsta_currentUser', JSON.stringify(currentUser));
+                } else {
+                    localStorage.removeItem('gminsta_token');
+                    window.location.href = 'login.html';
+                    return;
+                }
+            }
+
+            document.getElementById('yourStoryImg').src = currentUser.profilePhoto || 'https://randomuser.me/api/portraits/lego/1.jpg';
+            loadStories();
+            loadFeed();
+            loadNotificationCount();
+        }
+
+        async function loadNotificationCount() {
+            try {
+                const res = await fetch('/api/notifications/unread/count', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                if (data.count > 0) {
+                    document.getElementById('notificationIcon').innerHTML = `<span class="badge">${data.count}</span><i class="fa-regular fa-heart" style="margin-left: 5px;"></i>`;
+                }
+            } catch(e) {}
+        }
+
+        async function loadStories() {
+            try {
+                const res = await fetch('/api/stories', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                const container = document.getElementById('storiesContainer');
+                
+                while (container.children.length > 1) {
+                    container.removeChild(container.lastChild);
+                }
+                
+                if (data.stories && data.stories.length > 0) {
+                    data.stories.forEach(story => {
+                        if (story.authorUsn !== currentUser.usn) {
+                            container.innerHTML += `
+                                <div class="story" onclick="viewStory('${story.id}')">
+                                    <div class="story-ring">
+                                        <img src="${story.authorPhoto || 'https://randomuser.me/api/portraits/lego/2.jpg'}">
+                                    </div>
+                                    <p>${story.authorName}</p>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+            } catch(e) {
+                console.error('Error loading stories:', e);
+            }
+        }
+
+        async function viewStory(storyId) {
+            try {
+                const res = await fetch('/api/stories', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                const story = data.stories.find(s => s.id === storyId);
+                
+                if (story && story.image) {
+                    document.getElementById('storyImage').src = story.image;
+                    document.getElementById('storyAuthorImg').src = story.authorPhoto || 'https://randomuser.me/api/portraits/lego/1.jpg';
+                    document.getElementById('storyAuthorName').textContent = story.authorName;
+                    document.getElementById('storyViewer').style.display = 'flex';
+                } else {
+                    alert('Story not found or expired');
+                }
+            } catch(e) {
+                console.error('Error viewing story:', e);
+            }
+        }
+
+        function closeStoryViewer() {
+            document.getElementById('storyViewer').style.display = 'none';
+        }
+
+        function openCreateStory() {
+            window.location.href = 'post.html?type=story';
+        }
+
+        async function loadFeed() {
+            try {
+                const res = await fetch('/api/posts', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                const container = document.getElementById('feedContainer');
+                
+                if (!data.posts || data.posts.length === 0) {
+                    container.innerHTML = '<div style="text-align:center; padding:40px; color:#8e8e8e;">No posts yet. Follow someone or create a post!</div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                for (const post of data.posts) {
+                    const commentsCount = post.comments?.length || 0;
+                    const likesCount = post.likes?.length || 0;
+                    
+                    container.innerHTML += `
+                        <div class="post" data-post-id="${post.id}">
+                            <div class="post-header">
+                                <div class="post-header-left">
+                                    <img src="${post.authorPhoto || 'https://randomuser.me/api/portraits/lego/1.jpg'}" onclick="location.href='user_profile.html?usn=${post.authorUsn}'">
+                                    <b onclick="location.href='user_profile.html?usn=${post.authorUsn}'">${post.authorName}</b>
+                                </div>
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </div>
+                            <img src="${post.image}" class="post-img" ondblclick="toggleLike('${post.id}')">
+                            <div class="actions">
+                                <i class="fa-${post.liked_by_user ? 'solid' : 'regular'} fa-heart like-btn ${post.liked_by_user ? 'heart-red' : ''}" onclick="toggleLike('${post.id}')"></i>
+                                <i class="fa-regular fa-comment" onclick="openComments('${post.id}')"></i>
+                                <i class="fa-regular fa-paper-plane"></i>
+                                <i class="fa-regular fa-bookmark" style="margin-left: auto;"></i>
+                            </div>
+                            <div class="likes">${likesCount.toLocaleString()} likes</div>
+                            <div class="caption"><b onclick="location.href='user_profile.html?usn=${post.authorUsn}'">${post.authorName}</b> ${post.caption || ''}</div>
+                            ${commentsCount > 0 ? `<div class="comments-btn" onclick="openComments('${post.id}')">View all ${commentsCount} comments</div>` : ''}
+                            <div class="timestamp">${formatTimeAgo(post.created_at)}</div>
+                        </div>
+                    `;
+                }
+            } catch(e) {
+                console.error('Error loading feed:', e);
+            }
+        }
+
+        function formatTimeAgo(dateStr) {
+            if (!dateStr) return 'Just now';
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000);
+            
+            if (diff < 60) return `${diff}s ago`;
+            if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+            if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`;
+            return date.toLocaleDateString();
+        }
+
+        async function toggleLike(postId) {
+            try {
+                const response = await fetch(`/api/posts/${postId}/like`, {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                
+                if (response.ok) {
+                    loadFeed();
+                    loadNotificationCount();
+                }
+            } catch(e) {
+                console.error('Error liking post:', e);
+            }
+        }
+
+        async function openComments(postId) {
+            currentPostId = postId;
+            const res = await fetch('/api/posts', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            const data = await res.json();
+            const post = data.posts.find(p => p.id === postId);
+            
+            const commentsList = document.getElementById('commentsList');
+            if (post.comments && post.comments.length > 0) {
+                commentsList.innerHTML = post.comments.map(c => `
+                    <div class="comment-item">
+                        <img src="https://randomuser.me/api/portraits/lego/1.jpg">
+                        <div class="comment-text">
+                            <b>${c.username}</b> ${c.text}
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                commentsList.innerHTML = '<div style="text-align:center; color:#8e8e8e;">No comments yet. Be the first to comment!</div>';
+            }
+            
+            document.getElementById('commentModal').style.display = 'flex';
+        }
+
+        function closeCommentModal() {
+            document.getElementById('commentModal').style.display = 'none';
+            document.getElementById('commentInput').value = '';
+        }
+
+        async function postComment() {
+            const commentText = document.getElementById('commentInput').value.trim();
+            if (!commentText || !currentPostId) return;
+            
+            await fetch(`/api/posts/${currentPostId}/comment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ text: commentText })
+            });
+            
+            document.getElementById('commentInput').value = '';
+            closeCommentModal();
+            loadFeed();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

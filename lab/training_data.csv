@@ -1,0 +1,8 @@
+Sky,Temp,Humidity,Wind,Play
+Sunny,hot,high,false,no
+Sunny,hot,high,true,no
+overcaste,hot,high,false,yes
+rain,cold,High,false,yes
+rain,cold,high,true,no
+overcaste,hot,high,true,yes
+sunny,hot,high,false,no

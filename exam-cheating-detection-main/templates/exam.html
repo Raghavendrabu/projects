@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Exam - Cheating Detection System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .exam-container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .exam-area {
+            flex: 3;
+            padding: 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .webcam-sidebar {
+            flex: 1;
+            background: white;
+            margin: 20px 20px 20px 0;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .webcam-feed {
+            width: 100%;
+            border-radius: 10px;
+            border: 3px solid #667eea;
+            background: #000;
+        }
+        
+        .status-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .timer {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            color: #667eea;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+        
+        .timer.warning {
+            color: #ff4757;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .question-text {
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .options {
+            list-style: none;
+        }
+        
+        .options li {
+            margin: 15px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .options li:hover {
+            background: #e0e7ff;
+            transform: translateX(5px);
+            border-color: #667eea;
+        }
+        
+        .options li.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: #ff4757;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #ff3838;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:disabled, .btn-danger:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .question-counter {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        
+        .status-active {
+            background: #28a745;
+            color: white;
+        }
+        
+        .violation-log {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 10px;
+        }
+        
+        .violation-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: #fff3cd;
+            border-left: 3px solid #ffc107;
+            font-size: 11px;
+            border-radius: 4px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="exam-container">
+        <div class="exam-area">
+            <div class="timer" id="timer">--:--:--</div>
+            
+            <div class="question" id="question-container">
+                <div class="loading">Loading questions...</div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-primary" id="prev-btn" onclick="previousQuestion()">◀ Previous</button>
+                <span class="question-counter" id="question-counter">Question 0 of 0</span>
+                <button class="btn-primary" id="next-btn" onclick="nextQuestion()">Next ▶</button>
+                <button class="btn-danger" onclick="submitExam()">Submit Exam</button>
+            </div>
+        </div>
+        
+        <div class="webcam-sidebar">
+            <img id="webcam-feed" class="webcam-feed" src="{{ url_for('video_feed') }}" alt="Webcam Feed">
+            
+<div class="status-card">
+    <h3>📋 Exam Information</h3>
+    <p><strong>Student:</strong> <span id="student-name">{{ student_name }}</span></p>
+    <p><strong>Exam:</strong> <span id="exam-name">{{ exam_name }}</span></p>
+    <p><strong>Status:</strong> <span id="exam-status" class="status-badge status-active">In Progress</span></p>
+    <p><strong>⚠️ Warnings:</strong> <span id="warning-count" style="color: #ff4757; font-weight: bold;">0</span> / 3</p>
+</div>
+            
+            <div class="violation-log">
+                <strong>📝 Activity Log:</strong>
+                <div id="log-entries">No activities recorded yet</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const examCode = '{{ exam_code }}';
+        const lockdownBrowser = {{ 'true' if lockdown_browser else 'false' }};
+        const forceFullscreen = {{ 'true' if force_fullscreen else 'false' }};
+        let currentQuestion = 0;
+        let answers = {};
+        let questions = [];
+        let examActive = true;
+        
+        // Dynamic Question Loading from MongoDB
+        function loadQuestionsFromDB() {
+            fetch(`/api/admin_exams/quiz/${examCode}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.questions && data.questions.length > 0) {
+                        questions = data.questions;
+                    } else {
+                        console.log("No dynamic quiz configured. Using fallback questions.");
+                        questions = [
+                            {
+                                text: "What is the capital of France?",
+                                options: ["London", "Berlin", "Paris", "Madrid"],
+                                correct: 2,
+                                type: "mcq"
+                            },
+                            {
+                                text: "Which programming language is primarily used for Artificial Intelligence?",
+                                options: ["Java", "Python", "C++", "Ruby"],
+                                correct: 1,
+                                type: "mcq"
+                            },
+                            {
+                                text: "What does CPU stand for?",
+                                options: ["Central Processing Unit", "Computer Personal Unit", "Central Program Utility", "Core Processing Unit"],
+                                correct: 0,
+                                type: "mcq"
+                            },
+                            {
+                                text: "Which of the following is a database management system?",
+                                options: ["HTML", "CSS", "MySQL", "JavaScript"],
+                                correct: 2,
+                                type: "mcq"
+                            },
+                            {
+                                text: "What does HTTP stand for?",
+                                options: ["HyperText Transfer Protocol", "High Transfer Text Protocol", "Hyper Transfer Text Protocol", "HighText Transfer Protocol"],
+                                correct: 0,
+                                type: "mcq"
+                            }
+                        ];
+                    }
+                    loadQuestion();
+                })
+                .catch(err => {
+                    console.error("Error fetching quiz questions:", err);
+                    loadQuestion();
+                });
+        }
+        
+        function loadQuestion() {
+            if (!questions.length || currentQuestion >= questions.length) return;
+            
+            const q = questions[currentQuestion];
+            document.getElementById('question-counter').textContent = 
+                `Question ${currentQuestion + 1} of ${questions.length}`;
+            
+            const q_type = q.type || 'mcq';
+            const q_text = q.text || q.question_text || 'Question';
+            
+            if (q_type === 'text') {
+                const currentAnswer = answers[currentQuestion] || '';
+                document.getElementById('question-container').innerHTML = `
+                    <div class="question-text">${currentQuestion + 1}. ${q_text}</div>
+                    <div style="margin-top: 20px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 500; color: #333;">Type your answer below:</label>
+                        <textarea id="text-answer-input" oninput="saveTextAnswer(this.value)" style="width: 100%; height: 150px; padding: 12px; border-radius: 10px; border: 2px solid #e0e0e0; font-size: 16px; outline: none; transition: border-color 0.3s; font-family: inherit;" placeholder="Enter your subjective response here...">${currentAnswer}</textarea>
+                    </div>
+                `;
+            } else {
+                const optionsHtml = (q.options || []).map((opt, idx) => `
+                    <li class="${answers[currentQuestion] === idx ? 'selected' : ''}" 
+                        onclick="selectAnswer(${idx})">
+                        ${String.fromCharCode(65+idx)}. ${opt}
+                    </li>
+                `).join('');
+                
+                document.getElementById('question-container').innerHTML = `
+                    <div class="question-text">${currentQuestion + 1}. ${q_text}</div>
+                    <ul class="options">${optionsHtml}</ul>
+                `;
+            }
+            
+            // Update button states
+            document.getElementById('prev-btn').disabled = currentQuestion === 0;
+            document.getElementById('next-btn').disabled = currentQuestion === questions.length - 1;
+        }
+        
+        function selectAnswer(optionIndex) {
+            answers[currentQuestion] = optionIndex;
+            loadQuestion(); // Reload to show selection
+        }
+        
+        function saveTextAnswer(val) {
+            answers[currentQuestion] = val;
+        }
+        
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+        
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+        // Update warnings display
+        function updateWarnings() {
+            fetch('/get_exam_status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.warning_count !== undefined) {
+                        const warningSpan = document.getElementById('warning-count');
+                        if (warningSpan && warningSpan.textContent !== String(data.warning_count)) {
+                            warningSpan.textContent = data.warning_count;
+                            if (data.warning_count >= 3) {
+                                warningSpan.style.color = '#dc3545';
+                                warningSpan.style.fontWeight = 'bold';
+                                alert('⚠️ You have received 3 warnings! Your exam will be terminated.');
+                                autoSubmitExam();
+                            } else if (data.warning_count > 0) {
+                                warningSpan.style.color = '#ffc107';
+                            }
+                        }
+                    }
+                    if (data.terminated && examActive) {
+                        alert('⚠️ Your exam has been terminated due to too many warnings/violations!');
+                        autoSubmitExam();
+                    }
+                });
+        }
+
+        function autoSubmitExam() {
+            if (!examActive) return;
+            examActive = false;
+            
+            fetch('/submit_exam', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({answers: answers})
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = '/exam_completed';
+            })
+            .catch(error => {
+                console.error('Error auto-submitting:', error);
+                window.location.href = '/exam_completed';
+            });
+        }
+
+        function requestFullScreen() {
+            if (!forceFullscreen) return;
+            const element = document.documentElement;
+            if (element.requestFullscreen) {
+                element.requestFullscreen().catch(err => console.log(err));
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen().catch(err => console.log(err));
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen().catch(err => console.log(err));
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen().catch(err => console.log(err));
+            }
+        }
+
+        // Force fullscreen on click / start
+        document.addEventListener('click', function() {
+            if (examActive && forceFullscreen && !document.fullscreenElement) {
+                requestFullScreen();
+            }
+        });
+
+        // Detect exit fullscreen
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement && examActive && forceFullscreen) {
+                console.log('❌ CRITICAL: Exited Full Screen!');
+                alert('⚠️ Warning: You exited full screen. Please stay in full screen mode.');
+                requestFullScreen();
+            }
+        });
+
+// Add to existing setInterval
+setInterval(updateWarnings, 3000);
+        function submitExam() {
+            if (!examActive) {
+                alert('Exam has already been submitted!');
+                return;
+            }
+            
+            if (confirm('Are you sure you want to submit your exam? You cannot change answers after submission.')) {
+                fetch('/submit_exam', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({answers: answers})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('✅ Exam submitted successfully!');
+                        window.location.href = '/exam_completed';
+                    } else {
+                        alert('Error submitting exam: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error submitting exam. Please try again.');
+                    console.error('Error:', error);
+                });
+            }
+        }
+        
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+        }
+        
+        function updateTimer() {
+            fetch('/get_exam_status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.time_remaining !== undefined) {
+                        const timerElement = document.getElementById('timer');
+                        const newTime = formatTime(data.time_remaining);
+                        if (timerElement.textContent !== newTime) {
+                            timerElement.textContent = newTime;
+                        }
+                        
+                        // Change color when less than 5 minutes
+                        if (data.time_remaining < 300) {
+                            if (!timerElement.classList.contains('warning')) {
+                                timerElement.classList.add('warning');
+                            }
+                        }
+                        
+                        // Auto-submit when time is up
+                        if (data.time_remaining <= 0 && examActive) {
+                            examActive = false;
+                            alert('Time is up! Submitting your exam...');
+                            submitExam();
+                        }
+                    }
+                    
+                    if (data.terminated || data.warning_count >= 3) {
+                        if (examActive) {
+                            alert('⚠️ Your exam has been terminated due to too many warnings/violations!');
+                            autoSubmitExam();
+                        }
+                        return;
+                    }
+                    
+                    if (data.violations && data.violations.length > 0) {
+                        const logHtml = data.violations.slice().reverse().map(v => 
+                            `<div class="violation-item">⚠️ ${v.time} - ${v.type}</div>`
+                        ).join('');
+                        const logContainer = document.getElementById('log-entries');
+                        if (logContainer.innerHTML !== logHtml) {
+                            logContainer.innerHTML = logHtml;
+                        }
+                    }
+                    
+                    if (!data.active && examActive) {
+                        examActive = false;
+                        const statusBadge = document.getElementById('exam-status');
+                        statusBadge.textContent = 'Completed';
+                        statusBadge.style.background = '#6c757d';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching status:', error);
+                });
+        }
+        
+        // Initialize
+        console.log('Exam interface loaded');
+        loadQuestionsFromDB();
+        
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+        updateTimer(); // Initial call
+        
+        // Prevent accidental page refresh
+        window.addEventListener('beforeunload', function (e) {
+            if (examActive) {
+                e.preventDefault();
+                e.returnValue = 'Your exam is in progress. Are you sure you want to leave?';
+                return 'Your exam is in progress. Are you sure you want to leave?';
+            }
+        });
+
+        // Tab Switch Detection
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && examActive && lockdownBrowser) {
+                console.log('❌ CRITICAL: Tab switch detected!');
+                handleTabSwitch();
+            }
+        });
+
+        window.addEventListener('blur', function() {
+            if (examActive && lockdownBrowser) {
+                console.log('❌ CRITICAL: Window focus lost!');
+                handleTabSwitch();
+            }
+        });
+
+        function handleTabSwitch() {
+            if (!examActive) return;
+            
+            // Set local state to inactive immediately to prevent multiple triggers
+            examActive = false;
+            
+            // Use sendBeacon for more reliability when page is hidden
+            const data = JSON.stringify({ reason: 'tab_switch' });
+            navigator.sendBeacon('/log_tab_switch', data);
+            
+            // Show alert and redirect
+            alert('🚨 EXAM TERMINATED! You switched tabs or windows. This is a severe violation.');
+            window.location.href = '/exam_completed';
+        }
+    </script>
+</body>
+</html>

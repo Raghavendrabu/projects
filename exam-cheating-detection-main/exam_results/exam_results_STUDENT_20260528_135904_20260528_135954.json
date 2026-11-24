@@ -1,0 +1,100 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260528_135904",
+    "name": "ra",
+    "exam": "Data Structures Mid Term",
+    "course": "Online Exam"
+  },
+  "exam_name": "Data Structures Mid Term",
+  "exam_code": "EX-DS-401",
+  "start_time": "2026-05-28T13:59:04.246198",
+  "end_time": "2026-05-28T13:59:54.938880",
+  "duration_minutes": 90,
+  "answers": {
+    "0": 1,
+    "1": 0,
+    "2": 3,
+    "3": 3,
+    "4": 1,
+    "5": 1
+  },
+  "violations": [
+    {
+      "type": "MOUTH_MOVING",
+      "time": "13:59:40",
+      "timestamp": "20260528_135940_669573",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.25690418993013875,
+          "mouth_moving": true,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-05-28 13:59:40"
+        },
+        "image_gridfs_id": "6a17fcf4864cbab8a072162f"
+      }
+    }
+  ],
+  "warning_count": 1,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260528_135904.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260528_135904.mp4",
+    "video_gridfs_id": "6a17fd02864cbab8a0721632",
+    "screen_gridfs_id": "6a17fd02864cbab8a0721640"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Berlin",
+      "correct_answer": "Paris",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Java",
+      "correct_answer": "Python",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Core Processing Unit",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "JavaScript",
+      "correct_answer": "MySQL",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "High Transfer Text Protocol",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "jaaias",
+      "student_answer": "fe",
+      "correct_answer": "d",
+      "is_correct": false,
+      "type": "mcq"
+    }
+  ],
+  "score": {
+    "correct": 0,
+    "total": 6,
+    "percentage": 0
+  }
+}

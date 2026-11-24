@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institutional SMC & Volatility Strategy Hub | Antigravity</title>
+    <meta name="description" content="Master Smart Money Concepts (SMC), Order Blocks, Fair Value Gaps (FVG), Inversion FVGs, Liquidity Sweeps, and Bollinger Bands + Keltner Channel Volatility Squeeze Strategy with backtested metrics and interactive diagrams.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- NAVBAR HEADER -->
+    <header class="navbar">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-chart-candlestick" style="color: white;"></i>
+            </div>
+            <span>STRATEGY<b>HUB</b> <small style="font-size: 0.7rem; color: #06b6d4; font-weight: 600; margin-left: 4px;">SMC & VOLATILITY v2.0</small></span>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="dashboard">
+                <i class="fa-solid fa-gauge-high"></i> Dashboard Strategy
+            </button>
+            <button class="tab-btn" data-tab="patterns">
+                <i class="fa-solid fa-layer-group"></i> SMC Pattern Library
+            </button>
+            <button class="tab-btn" data-tab="canvas-simulator">
+                <i class="fa-solid fa-chart-line"></i> Interactive Canvas
+            </button>
+            <button class="tab-btn" data-tab="calculator">
+                <i class="fa-solid fa-calculator"></i> Risk & Position Calc
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- ===================================================================
+             VIEW 1: DASHBOARD & MAIN BB+KC STRATEGY
+             =================================================================== -->
+        <section id="dashboard" class="view-section active">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <i class="fa-solid fa-bolt" style="color: #f59e0b;"></i> BB + KC Volatility Momentum Scalper
+                </h1>
+                <p class="section-subtitle">
+                    Your backtested 20 SMA trend-filtered Keltner Channel breakout strategy for Nifty, Options & Crypto.
+                </p>
+            </div>
+
+            <!-- BACKTEST METRICS STATS BAR -->
+            <div class="grid-4" style="margin-bottom: 32px;">
+                <div class="stat-pill">
+                    <span class="stat-label">Backtested Win Rate</span>
+                    <span class="stat-value bull">83.33 %</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Profit Factor</span>
+                    <span class="stat-value cyan">5.55</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Net Profit (Sample)</span>
+                    <span class="stat-value bull">₹2,515.50</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Consecutive Wins</span>
+                    <span class="stat-value cyan">9 Trades</span>
+                </div>
+            </div>
+
+            <!-- MAIN STRATEGY RULES & DIAGRAM -->
+            <div class="grid-2">
+                <div class="glass-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h2 style="font-size: 1.25rem; font-weight: 700;">Strategy Execution Rulebook</h2>
+                        <span class="badge badge-bull">PROVEN LOGIC</span>
+                    </div>
+
+                    <div class="rule-item">
+                        <div class="rule-num">1</div>
+                        <div>
+                            <strong style="color: var(--accent-cyan);">Trend Alignment (20 SMA Filter)</strong>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 2px;">
+                                Price must be <strong>ABOVE 20 SMA (BB Middle Line)</strong> for BUY (Call) trades, and <strong>BELOW 20 SMA</strong> for SELL (Put) trades. Never trade against the 20 SMA.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <div class="rule-num">2</div>
+                        <div>
+                            <strong style="color: var(--bull-green);">Volatility Breakout Trigger (KC Band)</strong>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 2px;">
+                                Enter trade when a candle <strong>CLOSES outside the Keltner Channel Band</strong> (Above Upper KC for Long, Below Lower KC for Short). Requires candle close confirmation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <div class="rule-num">3</div>
+                        <div>
+                            <strong style="color: var(--accent-purple);">Squeeze Compression (Optional Booster)</strong>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 2px;">
+                                Highest accuracy occurs when Bollinger Bands squeeze inside Keltner Channels 1-3 bars prior to breakout.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <div class="rule-num">4</div>
+                        <div>
+                            <strong style="color: var(--bear-red);">Risk Management & Stop Loss</strong>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 2px;">
+                                Place Stop Loss at the 20 SMA line or Low/High of breakout candle. Target Minimum <strong>1:1.5 or 1:2 Risk-to-Reward Ratio</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="display: flex; flex-direction: column;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h2 style="font-size: 1.25rem; font-weight: 700;">Strategy Visual Infographic</h2>
+                        <span class="badge badge-purple">CLICK TO ENLARGE</span>
+                    </div>
+
+                    <div class="pattern-img-container pattern-card-item" 
+                         data-img="assets/images/bb_kc_squeeze_pattern.jpg" 
+                         data-title="Bollinger Bands + Keltner Channel Volatility Squeeze Strategy"
+                         data-desc="Step-by-step visual overview of Bollinger Bands narrowing inside Keltner Channels (Squeeze), followed by a candle closing above 20 SMA and breaking out of the Upper KC band for high-probability momentum entries."
+                         style="height: 100%; min-height: 280px; margin-bottom: 0;">
+                        <img src="assets/images/bb_kc_squeeze_pattern.jpg" alt="BB+KC Squeeze Strategy" class="pattern-img">
+                        <div class="pattern-overlay-btn">
+                            <i class="fa-solid fa-expand"></i> View Full Chart
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRADING HOURS & ADVICE -->
+            <div class="glass-card" style="margin-top: 24px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-clock" style="color: var(--accent-cyan);"></i> Optimal Trading Hours & Execution Advice
+                </h3>
+                <div class="grid-3">
+                    <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); padding: 14px; border-radius: 10px;">
+                        <strong style="color: var(--bull-green);">🟢 Morning Session (9:15 AM - 11:00 AM)</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">High market volume and expansion phase. Best time for option scalping.</p>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); padding: 14px; border-radius: 10px;">
+                        <strong style="color: var(--bear-red);">🔴 Avoid Mid-day Chop (11:30 AM - 1:15 PM)</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">Low volume sideways consolidation. Options suffer theta decay.</p>
+                    </div>
+                    <div style="background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.2); padding: 14px; border-radius: 10px;">
+                        <strong style="color: var(--accent-cyan);">🔵 Afternoon Expansion (1:30 PM - 3:15 PM)</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">Institutional closing moves and trend extensions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 2: SMC PATTERN LIBRARY
+             =================================================================== -->
+        <section id="patterns" class="view-section">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <i class="fa-solid fa-book-open" style="color: var(--accent-cyan);"></i> Smart Money Concepts (SMC) & Candlestick Library
+                </h1>
+                <p class="section-subtitle">
+                    Comprehensive visual guide to Order Blocks, Fair Value Gaps, Inversion FVGs, Liquidity Sweeps, and Breaker Blocks.
+                </p>
+            </div>
+
+            <!-- SEARCH & FILTER CONTROLS -->
+            <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+                <div style="position: relative; flex: 1; max-width: 400px;">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 12px; color: var(--text-muted);"></i>
+                    <input type="text" id="pattern-search" class="form-input" placeholder="Search patterns (e.g. Order Block, FVG, Sweep)..." style="padding-left: 40px;">
+                </div>
+
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-primary filter-btn" data-filter="all">All Patterns</button>
+                    <button class="btn filter-btn" data-filter="smc">SMC Core</button>
+                    <button class="btn filter-btn" data-filter="volatility">Volatility</button>
+                    <button class="btn filter-btn" data-filter="rejection">Rejections</button>
+                </div>
+            </div>
+
+            <!-- PATTERN CARDS GRID -->
+            <div class="grid-3">
+
+                <!-- CARD 1: ORDER BLOCK -->
+                <div class="glass-card pattern-card pattern-card-item" 
+                     data-category="smc" 
+                     data-title="Order Block (OB) - Bullish & Bearish"
+                     data-img="assets/images/order_block_pattern.jpg"
+                     data-desc="An Order Block (OB) represents the last opposing candle prior to a strong institutional move breaking market structure (BOS). When price returns to test the OB zone, institutions enter to mitigate position risk. Entry occurs at the OB boundary with Stop Loss right outside.">
+                    <div class="pattern-img-container">
+                        <img src="assets/images/order_block_pattern.jpg" alt="Order Block" class="pattern-img">
+                        <div class="pattern-overlay-btn"><i class="fa-solid fa-expand"></i> Inspect</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h3 style="font-size: 1.15rem; font-weight: 700;">Order Block (OB)</h3>
+                        <span class="badge badge-bull">SMC CORE</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">Institutional accumulation or distribution zone marked by the last candle before aggressive displacement.</p>
+                </div>
+
+                <!-- CARD 2: FVG & IFVG -->
+                <div class="glass-card pattern-card pattern-card-item" 
+                     data-category="smc" 
+                     data-title="Fair Value Gap (FVG) & Inversion FVG (IFVG)"
+                     data-img="assets/images/fvg_ifvg_pattern.jpg"
+                     data-desc="A Fair Value Gap (FVG) is a 3-candle price imbalance created during rapid market movement where Candle 1 High does not overlap Candle 3 Low. An Inversion FVG (IFVG) occurs when a prior FVG is aggressively breached and flips into dynamic resistance/support on the retest.">
+                    <div class="pattern-img-container">
+                        <img src="assets/images/fvg_ifvg_pattern.jpg" alt="FVG and IFVG" class="pattern-img">
+                        <div class="pattern-overlay-btn"><i class="fa-solid fa-expand"></i> Inspect</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h3 style="font-size: 1.15rem; font-weight: 700;">FVG & Inversion FVG</h3>
+                        <span class="badge badge-cyan">IMBALANCE</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">3-candle liquidity gap created by institutional orders, acting as a magnet for price retests.</p>
+                </div>
+
+                <!-- CARD 3: LIQUIDITY SWEEP -->
+                <div class="glass-card pattern-card pattern-card-item" 
+                     data-category="smc" 
+                     data-title="Liquidity Sweep / Stop Hunt (BSL & SSL)"
+                     data-img="assets/images/liquidity_sweep_pattern.jpg"
+                     data-desc="A Liquidity Sweep (or Raid) occurs when price briefly pierces above Equal Highs (Buyside Liquidity BSL) or below Equal Lows (Sellside Liquidity SSL) to trigger retail stop losses before making an immediate V-shaped reversal.">
+                    <div class="pattern-img-container">
+                        <img src="assets/images/liquidity_sweep_pattern.jpg" alt="Liquidity Sweep" class="pattern-img">
+                        <div class="pattern-overlay-btn"><i class="fa-solid fa-expand"></i> Inspect</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h3 style="font-size: 1.15rem; font-weight: 700;">Liquidity Sweep</h3>
+                        <span class="badge badge-bear">STOP HUNT</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">False breakout raid above Equal Highs / Lows designed to purge retail stop losses before true reversal.</p>
+                </div>
+
+                <!-- CARD 4: BB + KC VOLATILITY SQUEEZE -->
+                <div class="glass-card pattern-card pattern-card-item" 
+                     data-category="volatility" 
+                     data-title="Bollinger Band + Keltner Channel Volatility Squeeze"
+                     data-img="assets/images/bb_kc_squeeze_pattern.jpg"
+                     data-desc="Volatility Squeeze setup where Bollinger Bands contract entirely inside Keltner Channels during low-volatility consolidation. When price expands and breaks out outside the Keltner Channel in alignment with 20 SMA, it triggers a strong momentum rally.">
+                    <div class="pattern-img-container">
+                        <img src="assets/images/bb_kc_squeeze_pattern.jpg" alt="BB+KC Squeeze" class="pattern-img">
+                        <div class="pattern-overlay-btn"><i class="fa-solid fa-expand"></i> Inspect</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h3 style="font-size: 1.15rem; font-weight: 700;">BB + KC Volatility Squeeze</h3>
+                        <span class="badge badge-purple">BREAKOUT</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">Low volatility compression expanding into high-momentum trend breakouts.</p>
+                </div>
+
+                <!-- CARD 5: BREAKER BLOCK -->
+                <div class="glass-card pattern-card pattern-card-item" 
+                     data-category="smc" 
+                     data-title="Breaker Block Zone"
+                     data-img="assets/images/order_block_pattern.jpg"
+                     data-desc="A Breaker Block is a failed Order Block that was breached during a liquidity sweep. Once invalidated, the failed OB flips role: a failed bullish OB becomes a strong bearish breaker block resistance zone.">
+                    <div class="pattern-img-container">
+                        <img src="assets/images/order_block_pattern.jpg" alt="Breaker Block" class="pattern-img">
+                        <div class="pattern-overlay-btn"><i class="fa-solid fa-expand"></i> Inspect</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h3 style="font-size: 1.15rem; font-weight: 700;">Breaker Block</h3>
+                        <span class="badge badge-bull">MITIGATION</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">Failed order block breached during stop hunt that acts as strong support/resistance on return.</p>
+                </div>
+
+                <!-- CARD 6: REJECTION CANDLES -->
+                <div class="glass-card pattern-card pattern-card-item" 
+                     data-category="rejection" 
+                     data-title="Pinbar & Engulfing Rejection Candles"
+                     data-img="assets/images/liquidity_sweep_pattern.jpg"
+                     data-desc="Long wick pinbars (Hammer / Shooting Star) and Engulfing candles showing clear institutional rejection at key key levels like Order Blocks, FVGs, or Keltner Channels.">
+                    <div class="pattern-img-container">
+                        <img src="assets/images/liquidity_sweep_pattern.jpg" alt="Rejection Candles" class="pattern-img">
+                        <div class="pattern-overlay-btn"><i class="fa-solid fa-expand"></i> Inspect</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h3 style="font-size: 1.15rem; font-weight: 700;">Institutional Rejections</h3>
+                        <span class="badge badge-cyan">CANDLESTICK</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">Wick rejection bars confirming institutional supply or demand absorption.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 3: INTERACTIVE CANVAS SIMULATOR
+             =================================================================== -->
+        <section id="canvas-simulator" class="view-section">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <i class="fa-solid fa-chart-line" style="color: var(--accent-indigo);"></i> Interactive Candlestick Pattern Renderer
+                </h1>
+                <p class="section-subtitle">
+                    Render live mathematical candlestick pattern structures dynamically in your browser.
+                </p>
+            </div>
+
+            <div class="canvas-wrapper">
+                <div class="canvas-controls">
+                    <button class="btn btn-primary canvas-pattern-btn" data-canvas-type="bb_kc_squeeze">
+                        <i class="fa-solid fa-compress"></i> BB + KC Volatility Squeeze
+                    </button>
+                    <button class="btn canvas-pattern-btn" data-canvas-type="order_block">
+                        <i class="fa-solid fa-square-full"></i> Order Block (OB)
+                    </button>
+                    <button class="btn canvas-pattern-btn" data-canvas-type="fvg">
+                        <i class="fa-solid fa-arrows-up-down"></i> Fair Value Gap (FVG)
+                    </button>
+                    <button class="btn canvas-pattern-btn" data-canvas-type="liquidity_sweep">
+                        <i class="fa-solid fa-crosshairs"></i> Liquidity Sweep
+                    </button>
+                </div>
+
+                <canvas id="pattern-canvas"></canvas>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 4: RISK & POSITION CALCULATOR
+             =================================================================== -->
+        <section id="calculator" class="view-section">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <i class="fa-solid fa-calculator" style="color: var(--bull-green);"></i> Risk Management & Position Sizing Calculator
+                </h1>
+                <p class="section-subtitle">
+                    Calculate exact lot sizing, max ₹ risk, target profit, and Risk-to-Reward Ratio (RRR).
+                </p>
+            </div>
+
+            <div class="grid-2">
+                <div class="glass-card">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 20px;">Trade Inputs</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">Total Trading Capital (₹)</label>
+                        <input type="number" id="calc-capital" class="form-input" value="100000">
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Max Risk Per Trade (%)</label>
+                            <input type="number" id="calc-risk-pct" class="form-input" value="1.5" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Lot Size (Qty per Lot)</label>
+                            <input type="number" id="calc-lot-size" class="form-input" value="25">
+                            <small style="color: var(--text-muted); font-size: 0.75rem;">(Nifty = 25, BankNifty = 15, Stock = variable)</small>
+                        </div>
+                    </div>
+
+                    <div class="grid-3">
+                        <div class="form-group">
+                            <label class="form-label">Entry Price (₹)</label>
+                            <input type="number" id="calc-entry" class="form-input" value="150" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Stop Loss (₹)</label>
+                            <input type="number" id="calc-sl" class="form-input" value="130" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Target Price (₹)</label>
+                            <input type="number" id="calc-tp" class="form-input" value="190" step="0.5">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.2rem;">Position Calculation Output</h3>
+                            <span id="res-badge" class="badge badge-bull">EXCELLENT SETUP</span>
+                        </div>
+
+                        <div class="grid-2" style="margin-bottom: 20px;">
+                            <div class="stat-pill">
+                                <span class="stat-label">Allowed Max Risk (₹)</span>
+                                <span id="res-risk-amt" class="stat-value bear">₹1,500</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-label">Position Lots</span>
+                                <span id="res-lots" class="stat-value cyan">3 Lots (75 qty)</span>
+                            </div>
+                        </div>
+
+                        <div class="grid-2" style="margin-bottom: 20px;">
+                            <div class="stat-pill">
+                                <span class="stat-label">Total Capital Required</span>
+                                <span id="res-capital-used" class="stat-value">₹11,250</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-label">Target Profit (₹)</span>
+                                <span id="res-profit" class="stat-value bull">₹3,000</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-pill" style="background: rgba(99, 102, 241, 0.15); border-color: rgba(99, 102, 241, 0.3);">
+                            <span class="stat-label" style="color: var(--accent-indigo);">Risk-to-Reward Ratio (RRR)</span>
+                            <span id="res-rrr" class="stat-value cyan" style="font-size: 1.8rem;">1 : 2.00</span>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 16px;">
+                        *Always check contract margin requirements and account for transaction fees (brokerage ₹20/order + STT).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="image-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2 id="modal-title" style="font-size: 1.4rem; font-weight: 700; margin-bottom: 6px;">Pattern Title</h2>
+            <p id="modal-desc" style="font-size: 0.9rem; color: var(--text-secondary);">Pattern description...</p>
+            <img id="modal-img-element" src="" alt="Pattern Chart" class="modal-img">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascent | Professional Trading Journal & Playbook</title>
+    <!-- Google Fonts: Outfit (Numbers & UI) and Inter (Text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                        <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                </div>
+                <div class="brand-name">ASCENT</div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" data-tab="dashboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon">
+                        <rect x="3" y="3" width="7" height="9"></rect>
+                        <rect x="14" y="3" width="7" height="5"></rect>
+                        <rect x="14" y="12" width="7" height="9"></rect>
+                        <rect x="3" y="16" width="7" height="5"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#tradelog" class="nav-item" data-tab="tradelog">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                    <span>Trade Journal</span>
+                </a>
+                <a href="#planner" class="nav-item" data-tab="planner">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Playbook & Rules</span>
+                </a>
+                <a href="#calculators" class="nav-item" data-tab="calculators">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon">
+                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                        <line x1="9" y1="22" x2="9" y2="16"></line>
+                        <line x1="8" y1="6" x2="16" y2="6"></line>
+                        <line x1="16" y1="16" x2="16" y2="22"></line>
+                        <line x1="12" y1="16" x2="12" y2="22"></line>
+                        <line x1="8" y1="12" x2="8" y2="12.01"></line>
+                        <line x1="12" y1="12" x2="12" y2="12.01"></line>
+                        <line x1="16" y1="12" x2="16" y2="12.01"></line>
+                    </svg>
+                    <span>Calculators</span>
+                </a>
+                <a href="#journal" class="nav-item" data-tab="journal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                    <span>Daily Reflections</span>
+                </a>
+                <a href="#settings" class="nav-item" data-tab="settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    <span>Settings & Backup</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="account-card">
+                    <div class="avatar">T</div>
+                    <div class="account-info">
+                        <div class="account-name">Trader Journey</div>
+                        <div class="account-status">Active Account</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-title-container">
+                    <h1 id="page-title">Dashboard</h1>
+                    <p id="page-subtitle" class="text-secondary">Real-time statistics & visual analytics of your trading performance.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary btn-icon" id="quick-add-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-svg-icon">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>Add Trade</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Global Market Filter Bar -->
+            <div class="market-segment-bar glass animate-slide-up" id="global-market-filter" style="--animation-delay: 0.5;">
+                <button class="segment-btn active" data-market="ALL">All Markets</button>
+                <button class="segment-btn" data-market="Indian Market">Indian Market</button>
+                <button class="segment-btn" data-market="Crypto">Crypto</button>
+                <button class="segment-btn" data-market="Forex">Forex</button>
+                <button class="segment-btn" data-market="US Market">US Market</button>
+            </div>
+
+            <!-- Dashboard View -->
+            <section id="view-dashboard" class="content-view active-view">
+                <!-- Stat Cards Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card glass animate-slide-up" style="--animation-delay: 1;">
+                        <div class="stat-header">
+                            <span class="stat-title">Net Profit / Loss</span>
+                            <div class="stat-icon pnl-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="stat-net-pnl">₹0.00</div>
+                        <div class="stat-footer">
+                            <span class="stat-trend trend-neutral" id="stat-net-pnl-pct">0.0% account grow</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass animate-slide-up" style="--animation-delay: 2;">
+                        <div class="stat-header">
+                            <span class="stat-title">Win Rate</span>
+                            <div class="stat-icon winrate-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M22 4s-.7 2.1-2 3.4c-1.6 1.6-3.8 1.6-5.4 0l-5-5c-1.6-1.6-3.8-1.6-5.4 0C2.9 3.8 2 5.9 2 5.9"></path></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="stat-win-rate">0.0%</div>
+                        <div class="stat-footer">
+                            <span class="stat-description" id="stat-win-loss-ratio">0 wins / 0 losses</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass animate-slide-up" style="--animation-delay: 3;">
+                        <div class="stat-header">
+                            <span class="stat-title">Profit Factor</span>
+                            <div class="stat-icon profitfactor-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="stat-profit-factor">0.00</div>
+                        <div class="stat-footer">
+                            <span class="stat-description" id="stat-gross-pnl">Gross Profit: ₹0 / Gross Loss: ₹0</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass animate-slide-up" style="--animation-delay: 4;">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Trades</span>
+                            <div class="stat-icon trades-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="stat-total-trades">0</div>
+                        <div class="stat-footer">
+                            <span class="stat-description" id="stat-avg-pnl">Avg. Trade PnL: ₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Layout -->
+                <div class="charts-row">
+                    <div class="chart-container-large glass card animate-slide-up" style="--animation-delay: 5;">
+                        <div class="card-header">
+                            <h3>Equity Curve & PnL Progression</h3>
+                            <span class="card-subtitle">Visual performance over time</span>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="equityChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container-small glass card animate-slide-up" style="--animation-delay: 6;">
+                        <div class="card-header">
+                            <h3>Outcome Distribution</h3>
+                            <span class="card-subtitle">Ratio of Trade Outcomes</span>
+                        </div>
+                        <div class="chart-wrapper-small">
+                            <canvas id="outcomeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row: Recent Trades & Rules Quick View -->
+                <div class="bottom-grid">
+                    <div class="recent-trades-card glass card animate-slide-up" style="--animation-delay: 7;">
+                        <div class="card-header flex-header">
+                            <div>
+                                <h3>Recent Trades</h3>
+                                <span class="card-subtitle">Your latest journal entries</span>
+                            </div>
+                            <button class="btn btn-secondary btn-small" id="view-all-trades-btn">View Journal</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Symbol</th>
+                                        <th>Type</th>
+                                        <th>Setup</th>
+                                        <th>Outcome</th>
+                                        <th>Net P&L</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-trades-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="quick-playbook-card glass card animate-slide-up" style="--animation-delay: 8;">
+                        <div class="card-header flex-header">
+                            <div>
+                                <h3>Discipline Checklist</h3>
+                                <span class="card-subtitle">Daily execution rules</span>
+                            </div>
+                            <button class="btn btn-secondary btn-small" id="go-to-playbook-btn">Manage Playbook</button>
+                        </div>
+                        <div class="checklist-quick-container" id="quick-rules-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trade Log View -->
+            <section id="view-tradelog" class="content-view">
+                <div class="filter-bar glass">
+                    <div class="filter-inputs">
+                        <div class="search-input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="filter-search" placeholder="Search Symbol (e.g. AAPL, BTC)...">
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="filter-action">
+                                <option value="all">All Actions</option>
+                                <option value="LONG">Long</option>
+                                <option value="SHORT">Short</option>
+                            </select>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="filter-setup">
+                                <option value="all">All Setups</option>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="filter-outcome">
+                                <option value="all">All Outcomes</option>
+                                <option value="WIN">Wins</option>
+                                <option value="LOSS">Losses</option>
+                                <option value="BREAKEVEN">Breakeven</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-secondary" id="reset-filters-btn">Clear</button>
+                    </div>
+                </div>
+
+                <div class="trade-log-card glass card">
+                    <div class="card-header flex-header">
+                        <div>
+                            <h3 id="trade-log-counter">Journal Entries (0)</h3>
+                            <span class="card-subtitle">Tracked executions and records</span>
+                        </div>
+                        <div class="header-button-group">
+                            <button class="btn btn-primary btn-small btn-icon" id="add-trade-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-svg-icon">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span>Record Trade</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table log-table">
+                            <thead>
+                                <tr>
+                                    <th>Date/Time</th>
+                                    <th>Symbol</th>
+                                    <th>Action</th>
+                                    <th>Price (In / Out)</th>
+                                    <th>Quantity</th>
+                                    <th>Stop Loss / TP</th>
+                                    <th>Fees</th>
+                                    <th>Setup</th>
+                                    <th>Emotion</th>
+                                    <th>Net P&L</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trade-log-tbody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Playbook & Rules View -->
+            <section id="view-planner" class="content-view">
+                <div class="planner-grid">
+                    <!-- Daily Market Prep -->
+                    <div class="market-prep-card glass card">
+                        <div class="card-header">
+                            <h3>Daily Market Prep</h3>
+                            <span class="card-subtitle">Map the trading session beforehand</span>
+                        </div>
+                        <div class="prep-form">
+                            <div class="form-group">
+                                <label for="prep-bias">Market Bias & Trend Analysis</label>
+                                <textarea id="prep-bias" rows="3" placeholder="e.g. BTC showing strong daily support structure around $60k. Bias remains bullish above $62k..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="prep-levels">Key Levels (Support, Resistance, Liquidity)</label>
+                                <textarea id="prep-levels" rows="3" placeholder="e.g. SPY Resistance: 535.20, Support: 530.10, 528.00..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="prep-events">Macro Events / Red Folders to Avoid</label>
+                                <input type="text" id="prep-events" placeholder="e.g. FOMC Meeting at 2:00 PM EST, Initial Jobless Claims at 8:30 AM EST">
+                            </div>
+                            <div class="form-group">
+                                <label for="prep-execution-plan">Execution Plan & Setups I will take</label>
+                                <textarea id="prep-execution-plan" rows="4" placeholder="e.g. Wait for 5m consolidation breakout on SPY. If false breakout, take mean reversion to VWAP. Do not chase."></textarea>
+                            </div>
+                            <div class="prep-footer">
+                                <span class="saved-indicator" id="prep-saved-indicator">Saved locally</span>
+                                <button class="btn btn-primary" id="save-prep-btn">Save prep</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rules and Checklists -->
+                    <div class="rules-card-container">
+                        <!-- Pre-Trade Checklist -->
+                        <div class="checklist-card glass card">
+                            <div class="card-header flex-header">
+                                <div>
+                                    <h3>Pre-Trade Checklist</h3>
+                                    <span class="card-subtitle">Verify before pressing buy/sell</span>
+                                </div>
+                            </div>
+                            <div class="checklist-wrapper">
+                                <div class="checklist-items" id="checklist-items-list">
+                                    <!-- Dynamic checklist items -->
+                                </div>
+                                <div class="add-checklist-item-row">
+                                    <input type="text" id="new-checklist-input" placeholder="Add custom criteria...">
+                                    <button class="btn btn-secondary" id="add-checklist-btn">Add</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Discipline Rules -->
+                        <div class="discipline-card glass card">
+                            <div class="card-header flex-header">
+                                <div>
+                                    <h3>Core Rules of Discipline</h3>
+                                    <span class="card-subtitle">Rules to prevent blowups & enforce habits</span>
+                                </div>
+                            </div>
+                            <div class="checklist-wrapper">
+                                <div class="rules-items-list" id="rules-items-list">
+                                    <!-- Dynamic rules list -->
+                                </div>
+                                <div class="add-rule-row">
+                                    <input type="text" id="new-rule-input" placeholder="Add custom rule...">
+                                    <button class="btn btn-secondary" id="add-rule-btn">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calculators View -->
+            <section id="view-calculators" class="content-view">
+                <div class="calculators-grid">
+                    <!-- Position Size Calculator -->
+                    <div class="calculator-card glass card">
+                        <div class="card-header">
+                            <h3>Position Size Calculator</h3>
+                            <span class="card-subtitle">Manage risk size strictly per trade</span>
+                        </div>
+                        <div class="calc-body">
+                            <div class="form-group">
+                                <label for="calc-acc-size">Account Size (₹)</label>
+                                <input type="number" id="calc-acc-size" value="100000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-risk-pct">Risk Percentage (%)</label>
+                                <input type="number" id="calc-risk-pct" value="1.0" step="0.1" min="0" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-entry">Entry Price (₹)</label>
+                                <input type="number" id="calc-entry" value="100" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-stop">Stop Loss Price (₹)</label>
+                                <input type="number" id="calc-stop" value="95" min="0">
+                            </div>
+                            
+                            <div class="calc-divider"></div>
+                            
+                            <div class="calc-results">
+                                <div class="calc-result-row">
+                                    <span>Total Cash Risked:</span>
+                                    <strong id="result-cash-risk">₹1,000.00</strong>
+                                </div>
+                                <div class="calc-result-row">
+                                    <span>Position Quantity:</span>
+                                    <strong id="result-shares">200 units</strong>
+                                </div>
+                                <div class="calc-result-row">
+                                    <span>Total Trade Size:</span>
+                                    <strong id="result-notional-value">₹20,000.00</strong>
+                                </div>
+                                <div class="calc-result-row">
+                                    <span>Stop Loss Distance:</span>
+                                    <strong id="result-stop-dist">₹5.00 (5.00%)</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk/Reward Ratio Calculator -->
+                    <div class="calculator-card glass card">
+                        <div class="card-header">
+                            <h3>R-Multiple & Target Calculator</h3>
+                            <span class="card-subtitle">Verify risk/reward and set multiple targets</span>
+                        </div>
+                        <div class="calc-body">
+                            <div class="form-group">
+                                <label for="rr-entry">Entry Price (₹)</label>
+                                <input type="number" id="rr-entry" value="100" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="rr-stop">Stop Loss Price (₹)</label>
+                                <input type="number" id="rr-stop" value="95" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="rr-target">Target Price (₹)</label>
+                                <input type="number" id="rr-target" value="115" min="0">
+                            </div>
+                            
+                            <div class="calc-divider"></div>
+                            
+                            <div class="calc-results">
+                                <div class="calc-result-row">
+                                    <span>Risk (Stop Loss):</span>
+                                    <strong class="text-danger" id="rr-result-risk">₹5.00</strong>
+                                </div>
+                                <div class="calc-result-row">
+                                    <span>Reward (Target):</span>
+                                    <strong class="text-success" id="rr-result-reward">₹15.00</strong>
+                                </div>
+                                <div class="calc-result-row">
+                                    <span>Risk-to-Reward Ratio:</span>
+                                    <strong id="rr-result-ratio">1 : 3.00</strong>
+                                </div>
+                                <div class="calc-result-row">
+                                    <span>R-Multiple Potential:</span>
+                                    <strong class="badge badge-primary" id="rr-result-multiple">3.0R</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily Reflections View -->
+            <section id="view-journal" class="content-view">
+                <div class="journal-grid">
+                    <!-- Reflection Entry Form -->
+                    <div class="journal-editor-card glass card">
+                        <div class="card-header">
+                            <h3>Record Daily Reflection</h3>
+                            <span class="card-subtitle">Reflect on psychology, execution, and lessons</span>
+                        </div>
+                        <div class="journal-form">
+                            <div class="form-row">
+                                <div class="form-group flex-grow-1">
+                                    <label for="journal-date">Journal Date</label>
+                                    <input type="date" id="journal-date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="journal-grade">Discipline Grade</label>
+                                    <select id="journal-grade">
+                                        <option value="A">A - Excellent Discipline</option>
+                                        <option value="B">B - Minor Rule Break</option>
+                                        <option value="C">C - Impatient / Average</option>
+                                        <option value="D">D - Significant Mistakes</option>
+                                        <option value="F">F - Tilted / Revenge Traded</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="journal-title">Daily Title Summary</label>
+                                <input type="text" id="journal-title" placeholder="e.g. Patience paid off, executed 1 perfect trade">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group flex-grow-1">
+                                    <label for="journal-emotion">Dominant Mood/State</label>
+                                    <select id="journal-emotion">
+                                        <option value="Calm & Balanced">Calm & Balanced</option>
+                                        <option value="Excited & Optimistic">Excited & Optimistic</option>
+                                        <option value="Anxious & Hesitant">Anxious & Hesitant</option>
+                                        <option value="Greedy / Chasing">Greedy / Chasing</option>
+                                        <option value="Angry / Revenge Mode">Angry / Revenge Mode</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="journal-market-mood">Market Behavior</label>
+                                    <select id="journal-market-mood">
+                                        <option value="Trending Cleanly">Trending Cleanly</option>
+                                        <option value="Choppy / Rangebound">Choppy / Rangebound</option>
+                                        <option value="Highly Volatile">Highly Volatile</option>
+                                        <option value="Dead / No Volume">Dead / No Volume</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="journal-content">What went well, what went wrong, and lessons learned</label>
+                                <textarea id="journal-content" rows="6" placeholder="Write down review of the sessions, mental state during entry, execution quality, errors made..."></textarea>
+                            </div>
+                            <div class="journal-footer">
+                                <button class="btn btn-secondary" id="clear-journal-btn">Clear Form</button>
+                                <button class="btn btn-primary" id="save-journal-btn">Save Reflection</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Past Journal Entries -->
+                    <div class="journal-entries-card glass card">
+                        <div class="card-header">
+                            <h3>Reflection Logs</h3>
+                            <span class="card-subtitle">Review previous sessions</span>
+                        </div>
+                        <div class="journal-logs-list" id="journal-logs-list">
+                            <!-- Dynamic list of daily reflections -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings View -->
+            <section id="view-settings" class="content-view">
+                <div class="settings-grid">
+                    <!-- Backup & Restore -->
+                    <div class="settings-card glass card">
+                        <div class="card-header">
+                            <h3>Data Portability & Backup</h3>
+                            <span class="card-subtitle">Keep your records safe or export to other systems</span>
+                        </div>
+                        <div class="settings-body">
+                            <p class="settings-text text-secondary">All trade data, checklist items, and journal reflections are stored locally in your web browser. Clearing browser history or site data can delete them. We recommend regularly downloading a backup file.</p>
+                            
+                            <div class="settings-actions">
+                                <div class="setting-action-row">
+                                    <div class="action-desc">
+                                        <h4>Export Backup File</h4>
+                                        <p class="text-secondary">Download all logs, rules, and calculations to a single `.json` file.</p>
+                                    </div>
+                                    <button class="btn btn-primary" id="btn-export-data">Export JSON</button>
+                                </div>
+                                
+                                <div class="setting-action-row">
+                                    <div class="action-desc">
+                                        <h4>Import Backup File</h4>
+                                        <p class="text-secondary">Restore your journal from a previously saved Ascent backup file.</p>
+                                    </div>
+                                    <div class="import-file-wrapper">
+                                        <label for="import-file-input" class="btn btn-secondary cursor-pointer">
+                                            Choose File
+                                        </label>
+                                        <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                                        <span id="import-file-name" class="text-secondary">No file chosen</span>
+                                        <button class="btn btn-primary" id="btn-import-data" disabled>Import</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reset & Danger Zone -->
+                    <div class="settings-card glass card border-danger-card">
+                        <div class="card-header">
+                            <h3>Danger Zone</h3>
+                            <span class="card-subtitle text-danger">Actions cannot be undone</span>
+                        </div>
+                        <div class="settings-body">
+                            <div class="setting-action-row">
+                                <div class="action-desc">
+                                    <h4>Factory Reset Database</h4>
+                                    <p class="text-secondary">Wipe out all local data, trades, playbook, rules, and journal logs. This restarts the app as brand new.</p>
+                                </div>
+                                <button class="btn btn-danger" id="btn-reset-db">Reset All Data</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Trade Logger Modal (Add / Edit) -->
+    <div class="modal-backdrop" id="trade-modal">
+        <div class="modal glass animate-scale-up">
+            <div class="modal-header">
+                <h3 id="modal-title">Record New Execution</h3>
+                <button class="modal-close" id="close-modal-btn">&times;</button>
+            </div>
+            <form id="trade-form">
+                <input type="hidden" id="trade-index" value="">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trade-datetime">Date & Time *</label>
+                            <input type="datetime-local" id="trade-datetime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="trade-symbol">Asset/Symbol *</label>
+                            <input type="text" id="trade-symbol" placeholder="e.g. NIFTY, Reliance, BTC" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trade-market">Market Type *</label>
+                            <select id="trade-market" required>
+                                <option value="Indian Market">Indian Market</option>
+                                <option value="Crypto">Crypto</option>
+                                <option value="Forex">Forex</option>
+                                <option value="US Market">US Market</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="trade-action">Action *</label>
+                            <select id="trade-action" required>
+                                <option value="LONG">Long (Buy)</option>
+                                <option value="SHORT">Short (Sell)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trade-qty">Quantity / Units *</label>
+                            <input type="number" id="trade-qty" placeholder="e.g. 10" step="any" min="0.000001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="trade-entry">Entry Price (₹) *</label>
+                            <input type="number" id="trade-entry" placeholder="e.g. 100.50" step="any" min="0.000001" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trade-exit">Exit Price (₹) *</label>
+                            <input type="number" id="trade-exit" placeholder="e.g. 115.00" step="any" min="0.000001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="trade-sl">Stop Loss Price (₹)</label>
+                            <input type="number" id="trade-sl" placeholder="e.g. 95.00" step="any" min="0">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trade-tp">Take Profit Price (₹)</label>
+                            <input type="number" id="trade-tp" placeholder="e.g. 120.00" step="any" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="trade-fees">Broker Fees / Slippage (₹)</label>
+                            <input type="number" id="trade-fees" placeholder="0.00" step="any" min="0" value="0.00">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group flex-grow-1">
+                            <label for="trade-setup">Strategy Setup / Trigger</label>
+                            <input type="text" id="trade-setup" placeholder="e.g. Breakout, Pullback, VWAP Rebound" list="setup-datalist">
+                            <datalist id="setup-datalist">
+                                <option value="Breakout"></option>
+                                <option value="Pullback"></option>
+                                <option value="Mean Reversion"></option>
+                                <option value="Support/Resistance Rebound"></option>
+                                <option value="Moving Average Crossover"></option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group flex-grow-1">
+                            <label for="trade-emotion">Emotional State</label>
+                            <select id="trade-emotion">
+                                <option value="Disciplined">Disciplined / Calm</option>
+                                <option value="Greedy">Greedy / FOMO</option>
+                                <option value="Anxious">Anxious / Hesitant</option>
+                                <option value="Angry">Revenge / Angry</option>
+                                <option value="Impulsive">Impulsive / Bored</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="trade-notes">Notes / Observations</label>
+                        <textarea id="trade-notes" rows="3" placeholder="Describe context, reasons for exit, errors made..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancel-modal-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-trade-submit-btn">Save Trade</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Notification system -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

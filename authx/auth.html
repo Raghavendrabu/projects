@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuthX - Cyber Security Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mono {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .cyber-glow-left:hover {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .cyber-glow-right:hover {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-cyan-500 selection:text-slate-900">
+
+    <div
+        class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none">
+    </div>
+
+    <header
+        class="relative z-10 w-full px-8 py-4 flex justify-between items-center border-b border-slate-900 bg-slate-950/80 backdrop-blur-md">
+        <div class="flex items-center gap-2">
+            <span
+                class="mono text-2xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                AUTH<span class="text-emerald-400">X</span>
+            </span>
+            <span
+                class="text-[10px] mono bg-slate-900 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-sm uppercase tracking-wider">v2.0_secure</span>
+        </div>
+        <div class="text-xs text-slate-500 mono hidden md:block">
+            SYSTEM_STATUS: <span class="text-emerald-400 animate-pulse">● SECURED</span>
+        </div>
+    </header>
+
+    <main
+        class="relative z-10 flex-1 grid grid-cols-1 lg:grid-cols-2 w-full max-w-7xl mx-auto my-6 px-4 gap-6 items-stretch">
+
+        <section
+            class="cyber-glow-left transition-all duration-300 bg-slate-900/40 backdrop-blur-md border border-red-500/20 rounded-xl p-8 flex flex-col justify-between relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-red-500" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
+
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-2 bg-red-500/10 rounded-lg border border-red-500/30 text-red-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-slate-100">Threat Authentication</h2>
+                        <p class="text-xs text-red-400/80 mono">Continuous Zero-Trust Analysis</p>
+                    </div>
+                </div>
+
+                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                    Registers telemetry, environmental markers, behavior analysis, and network intelligence profiles to
+                    guard against automated attacks and anomaly risks.
+                </p>
+
+                <form class="space-y-4">
+                    <div>
+                        <label
+                            class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1.5 mono">Identity
+                            Label (Username)</label>
+                        <input type="text" placeholder="e.g., operator_01"
+                            class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-red-500 transition-colors mono">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1.5 mono">Access
+                            Key passphrase</label>
+                        <input type="password" placeholder="••••••••••••"
+                            class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-red-500 transition-colors">
+                    </div>
+                    <div class="p-3 bg-slate-950/60 border border-slate-800 rounded-lg space-y-2">
+                        <span
+                            class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block mono">Passive
+                            Diagnostics Enrolling:</span>
+                        <div class="flex items-center justify-between text-xs text-slate-400">
+                            <span class="flex items-center gap-1.5"><span
+                                    class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span> Device
+                                Fingerprinting</span>
+                            <span class="text-red-400 mono">[ACTIVE]</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-slate-400">
+                            <span class="flex items-center gap-1.5"><span
+                                    class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span> IP Threat Score
+                                Assessment</span>
+                            <span class="text-red-400 mono">[ACTIVE]</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mt-8">
+                <button
+                    class="w-full bg-gradient-to-r from-red-950 to-red-900 hover:from-red-900 hover:to-red-800 text-red-200 font-medium text-sm py-3 rounded-lg border border-red-500/40 transition-all uppercase tracking-wider mono shadow-lg shadow-red-950/20">
+                    Initialize Threat Shield
+                </button>
+            </div>
+        </section>
+
+        <section
+            class="cyber-glow-right transition-all duration-300 bg-slate-900/40 backdrop-blur-md border border-emerald-500/20 rounded-xl p-8 flex flex-col justify-between relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-emerald-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </div>
+
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/30 text-emerald-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-slate-100">Multi-Factor Authentication</h2>
+                        <p class="text-xs text-emerald-400/80 mono">Cryptographic Layer Verification</p>
+                    </div>
+                </div>
+
+                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                    Links absolute physical tokens, verification protocols, or secure secondary devices to your identity
+                    perimeter to block credential compromise.
+                </p>
+
+                <form class="space-y-4">
+                    <div>
+                        <label
+                            class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1.5 mono">Secure
+                            Communication Channel (Email)</label>
+                        <input type="email" placeholder="operator@domain.com"
+                            class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500 transition-colors mono">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1.5 mono">MFA
+                            Protocol Selection</label>
+                        <select
+                            class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-400 focus:outline-none focus:border-emerald-500 transition-colors mono">
+                            <option>Time-Based One-Time Password (TOTP App)</option>
+                            <option>Hardware Key (FIDO2 / YubiKey)</option>
+                            <option>Biometric WebAuthn Passkey</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-xs text-slate-400 pt-2">
+                        <div class="flex items-center gap-2 p-2.5 bg-slate-950/60 border border-slate-800 rounded-lg">
+                            <input type="checkbox" id="backup"
+                                class="accent-emerald-500 rounded bg-slate-900 border-slate-700">
+                            <label for="backup" class="cursor-pointer select-none">Backup Codes</label>
+                        </div>
+                        <div class="flex items-center gap-2 p-2.5 bg-slate-950/60 border border-slate-800 rounded-lg">
+                            <input type="checkbox" id="remember"
+                                class="accent-emerald-500 rounded bg-slate-900 border-slate-700" checked>
+                            <label for="remember" class="cursor-pointer select-none">Hardware Pin</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mt-8">
+                <button
+                    class="w-full bg-gradient-to-r from-emerald-950 to-emerald-900 hover:from-emerald-900 hover:to-emerald-800 text-emerald-200 font-medium text-sm py-3 rounded-lg border border-emerald-500/40 transition-all uppercase tracking-wider mono shadow-lg shadow-emerald-950/20">
+                    Establish MFA Anchor
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer
+        class="relative z-10 w-full text-center py-4 border-t border-slate-900 text-[11px] text-slate-600 mono tracking-wider bg-slate-950/40">
+        // AUTHX NODE DEPLOYED // ENCRYPTION: AES-256-GCM // ALL LOGS MONITORED
+    </footer>
+
+</body>
+
+</html>

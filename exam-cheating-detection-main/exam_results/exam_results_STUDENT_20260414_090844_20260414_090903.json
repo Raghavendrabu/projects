@@ -1,0 +1,89 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260414_090844",
+    "name": "df",
+    "exam": "ssssc",
+    "course": "Online Exam"
+  },
+  "exam_name": "ssssc",
+  "start_time": "2026-04-14T09:08:44.760524",
+  "end_time": "2026-04-14T09:09:03.181773",
+  "duration_minutes": 60,
+  "answers": {
+    "0": 0
+  },
+  "violations": [
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "09:08:47",
+      "timestamp": "20260414_090847_980845",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2977714458782347,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-04-14 09:08:47"
+        }
+      }
+    },
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "09:08:48",
+      "timestamp": "20260414_090848_335747",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2906303183487817,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-04-14 09:08:48"
+        }
+      }
+    },
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "09:08:48",
+      "timestamp": "20260414_090848_738957",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.2997118114203101,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-04-14 09:08:48"
+        }
+      }
+    },
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "09:08:49",
+      "timestamp": "20260414_090849_026772",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.3088707755702952,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-04-14 09:08:48"
+        }
+      }
+    }
+  ],
+  "warning_count": 1,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "./recordings\\webcam_20260414_090844.mp4",
+    "screen": "./recordings\\screen_20260414_090844.mp4"
+  },
+  "report_path": null
+}

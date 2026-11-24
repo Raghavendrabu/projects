@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniTask AI - Laptop Task Automation Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Navbar -->
+    <header class="navbar">
+      <div class="logo-area">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">
+          <h1>OmniTask AI</h1>
+          <span class="badge">Laptop Control Hub v1.0</span>
+        </div>
+      </div>
+      <div class="status-indicators">
+        <div class="status-chip" id="ws-status"><span class="dot green"></span> System Ready</div>
+        <div class="status-chip" id="vault-status"><span class="icon">🔒</span> AES-256 Vault Active</div>
+        <button class="btn btn-secondary" onclick="openVaultModal()">Manage Vault</button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <main class="main-layout">
+      <!-- Left Column: Command & Logs -->
+      <section class="left-panel">
+        <div class="card command-card">
+          <h2>Command Center</h2>
+          <p class="subtitle">Enter any natural language task for your laptop (e.g. open website, login, trade stocks, launch app)</p>
+          
+          <div class="input-group">
+            <input type="text" id="command-input" placeholder="Type task e.g. 'open github.com and login' or 'buy 10 AAPL on zerodha'..." autofocus />
+            <button class="btn btn-primary" id="run-btn" onclick="executeCommand()">Run Task 🚀</button>
+          </div>
+
+          <div class="quick-chips">
+            <span class="chip-label">Quick Suggestions:</span>
+            <button class="chip" onclick="setCommand('open github.com and login with my id')">🌐 Open GitHub & Login</button>
+            <button class="chip" onclick="setCommand('buy 10 AAPL on zerodha with stop loss 180')">📈 Place AAPL Trade</button>
+            <button class="chip" onclick="setCommand('open notepad app on laptop')">💻 Launch Notepad App</button>
+            <button class="chip" onclick="setCommand('search quantum computing news on google')">🔍 Search Google</button>
+          </div>
+        </div>
+
+        <div class="card logs-card">
+          <div class="card-header">
+            <h3>Live Execution Log</h3>
+            <button class="btn btn-sm" onclick="clearLogs()">Clear Logs</button>
+          </div>
+          <div class="log-stream" id="log-container">
+            <div class="log-entry system"><span class="time">[System]</span> OmniTask Engine Initialized. Awaiting user commands.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Visual Preview & HITL Approvals -->
+      <section class="right-panel">
+        <!-- Human In The Loop Approval Banner -->
+        <div class="card approval-card hidden" id="approval-box">
+          <div class="approval-header">
+            <span class="warning-icon">⚠️</span>
+            <div>
+              <h3>Human-In-The-Loop Approval Required</h3>
+              <p class="subtitle">High-risk action requires explicit manual confirmation before execution.</p>
+            </div>
+          </div>
+          <div class="approval-body" id="approval-details">
+            <!-- Dynamic approval content -->
+          </div>
+          <div class="approval-actions">
+            <button class="btn btn-danger" onclick="rejectAction()">Reject Task ❌</button>
+            <button class="btn btn-success" onclick="approveAction()">Approve & Execute Trade ✅</button>
+          </div>
+        </div>
+
+        <!-- Live Action Screenshot Viewer -->
+        <div class="card screenshot-card">
+          <div class="card-header">
+            <h3>Visual Action Preview</h3>
+            <span class="live-tag" id="live-indicator">LIVE SCREEN</span>
+          </div>
+          <div class="preview-container">
+            <img id="preview-image" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='600' height='400' fill='%23111420'/><text x='50%' y='50%' fill='%234a5568' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='16'>Screen output will appear here when tasks execute</text></svg>" alt="Task Visual Output" />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Credential Vault Modal -->
+    <div class="modal-overlay hidden" id="vault-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>🔐 Encrypted Credential Vault</h3>
+          <button class="close-btn" onclick="closeVaultModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="subtitle">Store accounts and API keys safely with local AES-256 encryption for automated web logins and broker access.</p>
+          
+          <form id="vault-form" onsubmit="saveVaultCredential(event)">
+            <div class="form-row">
+              <label>Service / Website Name (e.g. github, zerodha, google)</label>
+              <input type="text" id="vault-service" placeholder="github" required />
+            </div>
+            <div class="form-row">
+              <label>Username / Email / Account ID</label>
+              <input type="text" id="vault-username" placeholder="user@domain.com" required />
+            </div>
+            <div class="form-row">
+              <label>Password / Secret Key / API Secret</label>
+              <input type="password" id="vault-secret" placeholder="••••••••••••" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Encrypt & Save Credential</button>
+          </form>
+
+          <hr class="divider" />
+
+          <h4>Stored Credentials in Vault</h4>
+          <ul class="vault-list" id="vault-items-list">
+            <li class="empty-state">Loading stored credentials...</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

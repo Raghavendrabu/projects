@@ -1,0 +1,66 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260528_113153",
+    "name": "d",
+    "exam": "d",
+    "course": "Online Exam"
+  },
+  "exam_name": "d",
+  "start_time": "2026-05-28T11:31:53.206829",
+  "end_time": "2026-05-28T11:32:43.343909",
+  "duration_minutes": 60,
+  "answers": {
+    "0": 3,
+    "1": 2,
+    "2": 0,
+    "3": 1,
+    "4": 0
+  },
+  "violations": [
+    {
+      "type": "FACE_DISAPPEARED",
+      "time": "11:31:56",
+      "timestamp": "20260528_113156_785964",
+      "metadata": {
+        "details": {
+          "face_present": false,
+          "gaze_direction": "center",
+          "eye_ratio": 0.3,
+          "mouth_moving": false,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-05-28 11:31:56"
+        },
+        "image_gridfs_id": "6a17da54e8a5c53649144114"
+      }
+    },
+    {
+      "type": "MOUTH_MOVING",
+      "time": "11:32:24",
+      "timestamp": "20260528_113224_338308",
+      "metadata": {
+        "details": {
+          "face_present": true,
+          "gaze_direction": "center",
+          "eye_ratio": 0.26026968238987935,
+          "mouth_moving": true,
+          "multiple_faces": false,
+          "objects_detected": false,
+          "timestamp": "2026-05-28 11:32:24"
+        },
+        "image_gridfs_id": "6a17da70e8a5c53649144117"
+      }
+    }
+  ],
+  "warning_count": 2,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "./recordings\\webcam_20260528_113153.mp4",
+    "screen": "./recordings\\screen_20260528_113153.mp4",
+    "video_gridfs_id": "6a17da83e8a5c5364914411a",
+    "screen_gridfs_id": "6a17da83e8a5c5364914412f"
+  },
+  "report_path": null,
+  "report_gridfs_id": null
+}

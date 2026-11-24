@@ -1,0 +1,98 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260606_072018",
+    "name": "da",
+    "exam": "Data Structures Mid Term",
+    "course": "Online Exam"
+  },
+  "exam_name": "Data Structures Mid Term",
+  "exam_code": "EX-DS-401",
+  "start_time": "2026-06-06T07:20:18.943573",
+  "end_time": "2026-06-06T07:20:59.931506",
+  "duration_minutes": 90,
+  "answers": {
+    "0": 2,
+    "1": 1,
+    "2": 0,
+    "3": 2,
+    "4": 0,
+    "5": 2,
+    "6": 1,
+    "7": "yasinn"
+  },
+  "violations": [],
+  "warning_count": 0,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260606_072019.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260606_072018.mp4",
+    "video_gridfs_id": "6a237d0203007263390eee12",
+    "screen_gridfs_id": "6a237d0203007263390eee87"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Paris",
+      "correct_answer": "Paris",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Python",
+      "correct_answer": "Python",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Central Processing Unit",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "MySQL",
+      "correct_answer": "MySQL",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "HyperText Transfer Protocol",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "jaaias",
+      "student_answer": "ef",
+      "correct_answer": "d",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "hi",
+      "student_answer": "re",
+      "correct_answer": "re",
+      "is_correct": true,
+      "type": "mcq"
+    },
+    {
+      "question_text": "yasin",
+      "student_answer": "yasinn",
+      "correct_answer": "yasinn",
+      "is_correct": true,
+      "type": "text"
+    }
+  ],
+  "score": {
+    "correct": 7,
+    "total": 8,
+    "percentage": 87
+  }
+}

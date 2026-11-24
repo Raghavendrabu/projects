@@ -1,0 +1,89 @@
+{
+  "student_info": {
+    "id": "STUDENT_20260606_071940",
+    "name": "as",
+    "exam": "Data Structures Mid Term",
+    "course": "Online Exam"
+  },
+  "exam_name": "Data Structures Mid Term",
+  "exam_code": "EX-DS-401",
+  "start_time": "2026-06-06T07:19:40.712751",
+  "end_time": "2026-06-06T07:19:53.138528",
+  "duration_minutes": 90,
+  "answers": {},
+  "violations": [],
+  "warning_count": 0,
+  "terminated": false,
+  "status": "submitted",
+  "recordings": {
+    "video": "C:\\Projects\\exam-cheating-detection-main\\recordings\\webcam_20260606_071941.mp4",
+    "screen": "C:\\Projects\\exam-cheating-detection-main\\recordings\\screen_20260606_071940.mp4",
+    "video_gridfs_id": "6a237cc003007263390eed96",
+    "screen_gridfs_id": "6a237cc003007263390eeda8"
+  },
+  "report_path": null,
+  "report_gridfs_id": null,
+  "grading_report": [
+    {
+      "question_text": "What is the capital of France?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Paris",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which programming language is primarily used for Artificial Intelligence?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Python",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does CPU stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "Central Processing Unit",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "Which of the following is a database management system?",
+      "student_answer": "Not Answered",
+      "correct_answer": "MySQL",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "What does HTTP stand for?",
+      "student_answer": "Not Answered",
+      "correct_answer": "HyperText Transfer Protocol",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "jaaias",
+      "student_answer": "Not Answered",
+      "correct_answer": "d",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "hi",
+      "student_answer": "Not Answered",
+      "correct_answer": "re",
+      "is_correct": false,
+      "type": "mcq"
+    },
+    {
+      "question_text": "yasin",
+      "student_answer": "Not Answered",
+      "correct_answer": "yasinn",
+      "is_correct": false,
+      "type": "text"
+    }
+  ],
+  "score": {
+    "correct": 0,
+    "total": 8,
+    "percentage": 0
+  }
+}
